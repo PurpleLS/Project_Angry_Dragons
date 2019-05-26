@@ -7,4 +7,7 @@ int main()
 {
 	std::cout << "avihai789 k1ng";
 	std::cout << "Everybody knows allready...";
+int main() {
+
+	std::cout << "liel";
 }
