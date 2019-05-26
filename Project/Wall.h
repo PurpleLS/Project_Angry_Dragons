@@ -5,7 +5,7 @@ class Wall :
 {
 public:
 	Wall();
-	~Wall();\
-	virtual void collision();
+	~Wall();
+	virtual void coillision() = 0;
 };
 

@@ -6,5 +6,6 @@ class Wood :
 public:
 	Wood();
 	~Wood();
+	virtual void coillision();
 };
 

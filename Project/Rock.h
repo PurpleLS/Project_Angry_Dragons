@@ -6,5 +6,6 @@ class Rock :
 public:
 	Rock();
 	~Rock();
+	virtual void coillision();
 };
 

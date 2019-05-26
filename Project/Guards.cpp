@@ -10,3 +10,7 @@ Guards::Guards()
 Guards::~Guards()
 {
 }
+
+void Guards::coillision()
+{
+}

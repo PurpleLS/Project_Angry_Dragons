@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="GameObject" Collapsed="true">
+  <Class Name="GameObject">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
@@ -14,14 +14,14 @@
       <FileName>Moveable.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NonMoveable" Collapsed="true">
+  <Class Name="NonMoveable">
     <Position X="10.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEBBAAAAAAAAAAAA=</HashCode>
       <FileName>NonMoveable.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Wall" Collapsed="true">
+  <Class Name="Wall">
     <Position X="9.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAACAAAAAQAAAAAAAAAAAA=</HashCode>
@@ -63,7 +63,7 @@
       <FileName>Viserion.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Ice" Collapsed="true">
+  <Class Name="Ice">
     <Position X="11.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAQAA=</HashCode>
@@ -87,14 +87,14 @@
   <Class Name="GameController" Collapsed="true">
     <Position X="18.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAgAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAQAAgCAABAAQAAAAAAAAAAEAEAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>GameController.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Board" Collapsed="true">
     <Position X="16.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAQAAIAAAAAAAAAAAAgAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAIAAAAAAAAAAAAgBAAAACAAAAA=</HashCode>
       <FileName>Board.h</FileName>
     </TypeIdentifier>
   </Class>

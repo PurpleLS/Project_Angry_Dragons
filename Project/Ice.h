@@ -6,5 +6,6 @@ class Ice :
 public:
 	Ice();
 	~Ice();
+	virtual void coillision();
 };
 

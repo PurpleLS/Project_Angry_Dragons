@@ -10,3 +10,7 @@ NonMoveable::NonMoveable()
 NonMoveable::~NonMoveable()
 {
 }
+
+//void NonMoveable::coillision()
+//{
+//}

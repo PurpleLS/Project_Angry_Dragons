@@ -11,6 +11,3 @@ Wall::~Wall()
 {
 }
 
-void Wall::collision()
-{
-}

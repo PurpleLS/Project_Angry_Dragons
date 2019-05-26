@@ -6,5 +6,6 @@ class Guards :
 public:
 	Guards();
 	~Guards();
+	virtual void coillision();
 };
 
