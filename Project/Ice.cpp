@@ -9,6 +9,10 @@ Ice::Ice(b2World * world, int width, sf::Vector2f postion)
 
 {
 	// Graphics::getInstance().
+
+
+
+	// gavi added this!!!
 }
 
 
