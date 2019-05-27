@@ -27,12 +27,12 @@ int main()
 	// srand((unsigned)time(NULL));
 	// Open file 
 	ifstream file("AngryD.txt");
-	if (!file.is_open())
+	/*if (!file.is_open())
 	{
 		cout << "The file could not open " << endl;
 		return EXIT_FAILURE;
-	}
-	GameController game;
+	}*/
+	GameController game(file);
 	game.run();
 	return EXIT_SUCCESS;
 };
