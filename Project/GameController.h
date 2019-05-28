@@ -3,6 +3,7 @@
 #include "Dragons.h"
 #include "Board.h"
 #include "Menu.h"
+#include "Graphics.h"
 #include <memory>
 #include <fstream>
 #include <iostream>

@@ -15,14 +15,24 @@ Board::~Board()
 {
 }
 
+void Board::print(sf::RenderWindow & window, b2World* world)
+{
+	b2Body* BodyIterator = world->GetBodyList();
+	for (int i = 0; i < m_objects.size(); ++i)
+	{
+		m_objects[i]->print(BodyIterator->GetPosition(), BodyIterator->GetAngle());
+		window.draw(m_objects[i]->getSprite());
+	}
+}
+
 void Board::readBoard(ifstream & file, b2World* world)
 {
+	char c;
 	int rows, columns;
 	file >> rows >> columns;
 
 	m_objects.clear();
 
-	char c;
 	c = file.get(); // First time get the end of line
 	for (float i = 0; i < rows; i++)
 	{

@@ -32,3 +32,9 @@ GameObject::GameObject(b2World* world, int width, sf::Vector2f position)
 GameObject::~GameObject()
 {
 }
+
+void GameObject::print(const b2Vec2 position, float32 y)
+{
+	m_sprite.setPosition(position.x * 100, position.y * 100);
+	m_sprite.setRotation(180 / b2_pi * y);
+}

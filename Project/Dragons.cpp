@@ -6,7 +6,6 @@ Dragons::Dragons()
 {
 }
 
-
 Dragons::~Dragons()
 {
 }

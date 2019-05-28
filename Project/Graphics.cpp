@@ -4,6 +4,15 @@
 
 Graphics::Graphics()
 {
+	m_pictures.resize(8);
+	m_pictures[0].loadFromFile("Pictures/wood_icon.png");
+	m_pictures[1].loadFromFile("Pictures/rock_icon.png");
+	m_pictures[2].loadFromFile("Pictures/ice_icon.png");
+	m_pictures[3].loadFromFile("Pictures/guards_icon.png");
+	m_pictures[4].loadFromFile("Pictures/drogon_icon.png");
+	m_pictures[5].loadFromFile("Pictures/rhaegal_icon.png");
+	m_pictures[6].loadFromFile("Pictures/viserion_icon.png");
+	m_pictures[7].loadFromFile("Pictures/ground_icon.png");
 }
 
 const sf::Texture * Graphics::getTexture(int index) const
@@ -12,7 +21,7 @@ const sf::Texture * Graphics::getTexture(int index) const
 	{
 		return &m_pictures[index];
 	}
-	return NULL;//check this
+	return &m_pictures[0];//check this
 }
 
 const sf::Font * Graphics::getFont() const

@@ -14,11 +14,11 @@ GameController::GameController()
 GameController::GameController(ifstream & file)
 {
 	m_window.create(sf::VideoMode(1920, 800), "Angry Dragons", sf::Style::Close);
-	readLevel(file);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
-	
+
+	readLevel(file);
 	createGround(*m_world, 400.f, 500.f);
 }
 
@@ -35,11 +35,11 @@ void GameController::readLevel(ifstream & file)
 	file >> dragonsD >> dragonsV >> dragonsR;
 
 	for(int i = 0; i < dragonsD; ++i)
-		m_dragons.push_back(std::make_unique<Drogon>());
+		m_dragons.push_back(std::make_unique<Drogon>(m_world.get(), 1, sf::Vector2f(0, 0)));
 	for (int i = 0; i < dragonsV; ++i)
-		m_dragons.push_back(std::make_unique<Viserion>());
+		m_dragons.push_back(std::make_unique<Viserion>(m_world.get(), 1, sf::Vector2f(0, 0)));
 	for (int i = 0; i < dragonsR; ++i)
-		m_dragons.push_back(std::make_unique<Rhaegal>());
+		m_dragons.push_back(std::make_unique<Rhaegal>(m_world.get(), 1, sf::Vector2f(0, 0)));
 
 	m_board.readBoard(file, m_world.get());
 }
@@ -48,24 +48,33 @@ void GameController::run()
 {
 		b2Body* BodyIterator = m_world->GetBodyList();
 		sf::Sprite GroundSprite;
-		sf::Texture GroundTexture;
-		GroundTexture.loadFromFile("ground.png");
-		GroundSprite.setTexture(GroundTexture);
-		GroundSprite.setOrigin(400.f, 8.f);
-		GroundSprite.setScale(1920 / GroundSprite.getGlobalBounds().width, 800 / GroundSprite.getGlobalBounds().height);
+		GroundSprite.setTexture(*Graphics::getInstance().getTexture(7));
+		GroundSprite.setOrigin(400.f, -2100.f);
+		GroundSprite.setScale(1920 / GroundSprite.getGlobalBounds().width, 100 / GroundSprite.getGlobalBounds().height);
 		
 		
 	while (m_window.isOpen())
 	{
-		std::cout << "hi";
 		m_world->Step(1 / 60.f, 8, 3);
-		m_window.clear();
+		m_window.clear(sf::Color::White);
 
 		GroundSprite.setPosition(BodyIterator->GetPosition().x * SCALE, BodyIterator->GetPosition().y * SCALE);//updates position
 		GroundSprite.setRotation(180 / b2_pi * BodyIterator->GetAngle());//updates rotation
 		m_window.draw(GroundSprite);
+		print();
 		m_window.display();
 	}
+}
+
+void GameController::print()
+{
+	b2Body* BodyIterator = m_world->GetBodyList();
+	for (int i = 0; i < m_dragons.size(); ++i)
+	{
+		m_dragons[i]->print(BodyIterator->GetPosition(), BodyIterator->GetAngle());
+		m_window.draw(m_dragons[i]->getSprite());
+	}
+	m_board.print(m_window, m_world.get());
 }
 
 //creates ground
