@@ -1,6 +1,6 @@
 #pragma once
 #include "Wall.h"
-#include "Graphics.h"
+
 class Ice :
 	public Wall
 {

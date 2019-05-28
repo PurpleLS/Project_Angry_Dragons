@@ -41,7 +41,7 @@ void GameController::readLevel(ifstream & file)
 	for (int i = 0; i < dragonsR; ++i)
 		m_dragons.push_back(std::make_unique<Rhaegal>());
 
-	m_board.readBoard(file);
+	m_board.readBoard(file, m_world.get());
 }
 
 void GameController::run()
@@ -57,6 +57,7 @@ void GameController::run()
 		
 	while (m_window.isOpen())
 	{
+		std::cout << "hi";
 		m_world->Step(1 / 60.f, 8, 3);
 		m_window.clear();
 

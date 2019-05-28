@@ -15,7 +15,7 @@ Board::~Board()
 {
 }
 
-void Board::readBoard(ifstream & file)
+void Board::readBoard(ifstream & file, b2World* world)
 {
 	int rows, columns;
 	file >> rows >> columns;
@@ -29,22 +29,32 @@ void Board::readBoard(ifstream & file)
 		for (float j = 0; j < columns; j++)
 		{
 			c = file.get();
+			int count = 1;
+			char d;
+			d = file.peek();
+			while(c == d)
+			{
+				count++;
+				d = file.get();
+				d = file.peek();
+			}
 			switch (c)
 			{
-			case '#': // Wall
-				m_objects.push_back(std::make_unique<Rock>()); // send position by i, j
+			case '#': // Rock
+				m_objects.push_back(std::make_unique<Rock>(world, count, sf::Vector2f(i,j)));
 				break;
 			case '&': // wood
-				m_objects.push_back(std::make_unique<Wood>());// send position by i, j
+				m_objects.push_back(std::make_unique<Wood>(world, count, sf::Vector2f(i, j)));
 			case'@': // Ice
-				m_objects.push_back(std::make_unique<Ice>());// send position by i, j
+				m_objects.push_back(std::make_unique<Ice>(world, count, sf::Vector2f(i, j)));
 				break;
 			case'!': // Guards
-				m_objects.push_back(std::make_unique<Guards>());// send position by i, j
+				m_objects.push_back(std::make_unique<Guards>(world, count, sf::Vector2f(i, j)));
 				break;
 			case' ':
 				break;
 			}
+			j += count;
 		}
 		c = file.get(); // Get the end of line
 	}

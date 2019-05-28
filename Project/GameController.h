@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <Box2D/Box2D.h>
+#include "Box2D/Box2D.h"
 
 using std::ifstream;
 using std::cout;
@@ -27,7 +27,7 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 private:
-	std::unique_ptr <b2World> m_world;
+	std::unique_ptr<b2World> m_world;
 	
 	sf::RenderWindow m_window;
 	Board m_board;

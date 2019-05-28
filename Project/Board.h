@@ -13,7 +13,7 @@ public:
 	Board();
 	~Board();
 	void draw();
-	void readBoard(ifstream &file);
+	void readBoard(ifstream &file, b2World* world);
 private:
 	std::vector<std::unique_ptr<NonMoveable>> m_objects;
 	
