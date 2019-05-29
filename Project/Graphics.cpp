@@ -10,9 +10,9 @@ Graphics::Graphics()
 	m_pictures[2].loadFromFile("Pictures/ice_icon.png");
 	m_pictures[3].loadFromFile("Pictures/guards_icon.png");
 	m_pictures[4].loadFromFile("Pictures/drogon_icon.png");
-	m_pictures[5].loadFromFile("Pictures/rhaegal_icon.png");
-	m_pictures[6].loadFromFile("Pictures/viserion_icon.png");
-	m_pictures[7].loadFromFile("Pictures/ground_icon.png");
+	m_pictures[5].loadFromFile("Pictures/dragon1_icon.png"); // rhaegal
+	m_pictures[6].loadFromFile("Pictures/dragon2_icon.png"); // viserion
+	m_pictures[7].loadFromFile("Pictures/dragon3_icon.png"); // ground
 }
 
 const sf::Texture * Graphics::getTexture(int index) const
