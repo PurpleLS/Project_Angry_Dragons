@@ -12,8 +12,8 @@ class Board
 public:
 	Board();
 	~Board();
-	void print(sf::RenderWindow & window, b2World* world);
-	void readBoard(ifstream &file, b2World* world);
+	void print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterator);
+	void readBoard(ifstream &file, b2World & world);
 private:
 	std::vector<std::unique_ptr<NonMoveable>> m_objects;
 	

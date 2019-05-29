@@ -6,7 +6,7 @@ class Moveable :
 public:
 	Moveable();
 	~Moveable();
-	Moveable(b2World* world, int width, sf::Vector2f postion) : GameObject(world, width, postion) {}
+	Moveable(b2World & world, int width, sf::Vector2f postion) : GameObject(world, width, postion) {}
 	virtual void move() = 0;
 
 };

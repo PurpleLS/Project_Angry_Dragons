@@ -5,7 +5,7 @@ class Drogon :
 {
 public:
 	Drogon();
-	Drogon(b2World* world, int width, sf::Vector2f postion);
+	Drogon(b2World & world, int width, sf::Vector2f postion);
 	~Drogon();
 };
 

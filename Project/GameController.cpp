@@ -19,7 +19,7 @@ GameController::GameController(ifstream & file)
 	m_world = std::make_unique<b2World>(m_gravity);
 
 	readLevel(file);
-	createGround(*m_world, 400.f, 500.f);
+	createGround(*m_world, 400.f, 701.f);
 }
 
 
@@ -34,22 +34,27 @@ void GameController::readLevel(ifstream & file)
 	int dragonsD, dragonsV, dragonsR;
 	file >> dragonsD >> dragonsV >> dragonsR;
 
+	int j = 0;
 	for(int i = 0; i < dragonsD; ++i)
-		m_dragons.push_back(std::make_unique<Drogon>(m_world.get(), 1, sf::Vector2f(0, 0)));
+ 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, sf::Vector2f(10.f, j*10.f)));
+	j += dragonsD;
 	for (int i = 0; i < dragonsV; ++i)
-		m_dragons.push_back(std::make_unique<Viserion>(m_world.get(), 1, sf::Vector2f(0, 0)));
+		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, sf::Vector2f(10.f, i * 10.f)));
+	j += dragonsV;
 	for (int i = 0; i < dragonsR; ++i)
-		m_dragons.push_back(std::make_unique<Rhaegal>(m_world.get(), 1, sf::Vector2f(0, 0)));
+		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, sf::Vector2f(10.f, i * 10.f)));
 
-	m_board.readBoard(file, m_world.get());
+	m_board.readBoard(file, *m_world);
 }
 
 void GameController::run()
 {
 		b2Body* BodyIterator = m_world->GetBodyList();
+		
+
 		sf::Sprite GroundSprite;
 		GroundSprite.setTexture(*Graphics::getInstance().getTexture(7));
-		GroundSprite.setOrigin(400.f, -2100.f);
+		GroundSprite.setOrigin(400.f, 8.f);
 		GroundSprite.setScale(1920 / GroundSprite.getGlobalBounds().width, 100 / GroundSprite.getGlobalBounds().height);
 		
 		
@@ -68,13 +73,18 @@ void GameController::run()
 
 void GameController::print()
 {
-	b2Body* BodyIterator = m_world->GetBodyList();
-	for (int i = 0; i < m_dragons.size(); ++i)
+	b2Body* bodyIterator = m_world->GetBodyList();
+	
+	int i = 0; 
+	for (; bodyIterator; bodyIterator = bodyIterator->GetNext())
 	{
-		m_dragons[i]->print(BodyIterator->GetPosition(), BodyIterator->GetAngle());
+		if (i >= m_dragons.size())
+			break;
+		m_dragons[i]->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
 		m_window.draw(m_dragons[i]->getSprite());
+		i++;
 	}
-	m_board.print(m_window, m_world.get());
+	m_board.print(m_window, *m_world, bodyIterator);
 }
 
 //creates ground
@@ -89,7 +99,7 @@ void GameController::createGround(b2World & World, float X, float Y)
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
 	
-	shape.SetAsBox((800.f / 2) / SCALE, (16.f / 2) / SCALE);
+	// shape.SetAsBox((800.f / 2) / SCALE, (1000.f / 2) / SCALE);
 	fixtureDef.density = 0.0f;
 	fixtureDef.shape = &shape;
 	body->CreateFixture(&fixtureDef);
