@@ -103,5 +103,6 @@ void GameController::createGround(b2World & World, float X, float Y)
 	fixtureDef.density = 0.0f;
 	fixtureDef.shape = &shape;
 	body->CreateFixture(&fixtureDef);
+	//gggg
 
 }
