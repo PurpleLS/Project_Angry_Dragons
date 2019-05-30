@@ -34,5 +34,6 @@ private:
 	Board m_board;
 	Menu m_menu;
 	vector<std::unique_ptr<Dragons>> m_dragons;
+	sf::Sprite m_groundSprite;
 };
 
