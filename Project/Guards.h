@@ -5,7 +5,7 @@ class Guards :
 {
 public:
 	Guards();
-	Guards(b2World & world, int width, sf::Vector2f postion, bool circle);
+	Guards(b2World & world, int width, sf::Vector2i postion, bool circle);
 	~Guards();
 	virtual void coillision();
 };

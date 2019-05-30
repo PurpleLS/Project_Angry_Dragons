@@ -5,13 +5,13 @@
 
 
 
-const float SCALE = 30.f;
+const float SCALE = 20.f;
 
 class GameObject
 {
 public:
 	GameObject();
-	GameObject(b2World & world, int width, sf::Vector2f postion, bool circle);
+	GameObject(b2World & world, int width, sf::Vector2i postion, bool circle);
 	~GameObject();
 	void print(const b2Vec2 position, float32 y);
 	sf::Sprite getSprite() const { return m_sprite; }

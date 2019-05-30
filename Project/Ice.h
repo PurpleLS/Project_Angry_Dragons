@@ -5,9 +5,7 @@ class Ice :
 	public Wall
 {
 public:
-	Ice();
-	Ice(b2World & world, int width, sf::Vector2f postion, bool circle);
-	~Ice();
+	Ice(b2World & world, int width, sf::Vector2i postion, bool circle);
 	virtual void coillision();
 };
 

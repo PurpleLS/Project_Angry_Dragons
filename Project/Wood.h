@@ -4,9 +4,7 @@ class Wood :
 	public Wall
 {
 public:
-	Wood();
-	Wood(b2World & world, int width, sf::Vector2f postion, bool circle);
-	~Wood();
+	Wood(b2World & world, int width, sf::Vector2i postion, bool circle);
 	virtual void coillision();
 };
 

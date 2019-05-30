@@ -6,21 +6,23 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(b2World & world, int width, sf::Vector2f position, bool circle)
+GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool circle)
 {
 	b2FixtureDef fixtureDef;
 	b2BodyDef bodyDef;
 	b2CircleShape circleShape;
 	b2PolygonShape boxShape;
 
-	bodyDef.position = b2Vec2(position.x / SCALE, position.y / SCALE);
-	bodyDef.type = b2_dynamicBody;
+	// sf::Vector2i i = mapCoordsToPixel(position);
+
+	bodyDef.position = b2Vec2(position.x, position.y);
+	bodyDef.type = b2_staticBody; //b2_dynamicBody;
 	m_body = world.CreateBody(&bodyDef);
 
 	if (circle)
 		circleShape.m_radius = 30;
 	else
-		boxShape.SetAsBox((32.f / 2) / SCALE, (32.f / 2) / SCALE);
+		boxShape.SetAsBox(((50.f / 2)*width) / SCALE, (50.f / 2) / SCALE);
 
 	fixtureDef.density = 1.f;
 	fixtureDef.friction = 0.7f;

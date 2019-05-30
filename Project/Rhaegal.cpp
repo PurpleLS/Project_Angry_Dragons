@@ -6,7 +6,7 @@ Rhaegal::Rhaegal()
 {
 }
 
-Rhaegal::Rhaegal(b2World & world, int width, sf::Vector2f postion, bool circle)
+Rhaegal::Rhaegal(b2World & world, int width, sf::Vector2i postion, bool circle)
 	: Dragons(world, width, postion, circle)
 {
 	m_sprite.setTexture(*Graphics::getInstance().getTexture(5));

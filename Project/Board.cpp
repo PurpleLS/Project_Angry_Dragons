@@ -25,20 +25,23 @@ void Board::print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterat
 	}
 }
 
-void Board::readBoard(ifstream & file, b2World & world)
+void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & window)
 {
 	char c;
 	int rows, columns;
 	file >> rows >> columns;
 
 	m_objects.clear();
+	sf::Vector2i vi;
 
 	c = file.get(); // First time get the end of line
-	for (float i = 0; i < rows; i++)
+	for (int i = 0; i < rows; i++)
 	{
-		for (float j = 0; j < columns; j++)
+		for (int j = 0; j < columns; ++j)
 		{
 			c = file.get();
+			if (c == ' ')
+				continue;
 			int count = 1;
 			char d;
 			d = file.peek();
@@ -51,20 +54,23 @@ void Board::readBoard(ifstream & file, b2World & world)
 			switch (c)
 			{
 			case '#': // Rock
-				m_objects.push_back(std::make_unique<Rock>(world, count, sf::Vector2f(i,j), false));
+				vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
+				m_objects.push_back(std::make_unique<Rock>(world, count, vi, false));
 				break;
-			case '&': // woo
-				m_objects.push_back(std::make_unique<Wood>(world, count, sf::Vector2f(i, j), false));
+			case '&': // wood
+				vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
+				m_objects.push_back(std::make_unique<Wood>(world, count, vi, false));
+				break;
 			case'@': // Ice
-				m_objects.push_back(std::make_unique<Ice>(world, count, sf::Vector2f(i, j), false));
+				vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
+				m_objects.push_back(std::make_unique<Ice>(world, count, vi, false));
 				break;
 			case'!': // Guards
-				m_objects.push_back(std::make_unique<Guards>(world, count, sf::Vector2f(i, j), true));
-				break;
-			case' ':
+				vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
+				m_objects.push_back(std::make_unique<Guards>(world, count, vi, true));
 				break;
 			}
-			j += count;
+			j += (count - 1);
 		}
 		c = file.get(); // Get the end of line
 	}

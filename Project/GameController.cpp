@@ -13,7 +13,7 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-	m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
+	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
@@ -38,17 +38,28 @@ void GameController::readLevel(ifstream & file)
 	int dragonsD, dragonsV, dragonsR;
 	file >> dragonsD >> dragonsV >> dragonsR;
 
-	m_board.readBoard(file, *m_world);
+	m_board.readBoard(file, *m_world, m_window);
+
+	sf::Vector2i vi;
 
 	int j = 0;
-	for(int i = 0; i < dragonsD; ++i)
- 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, sf::Vector2f(10.f, j*10.f),true));
+	for (int i = 0; i < dragonsD; ++i)
+	{
+		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
+		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
+	}
 	j += dragonsD;
 	for (int i = 0; i < dragonsV; ++i)
-		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, sf::Vector2f(10.f, i * 10.f), true));
+	{
+		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
+		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
+	}
 	j += dragonsV;
 	for (int i = 0; i < dragonsR; ++i)
-		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, sf::Vector2f(10.f, i * 10.f), true));
+	{
+		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
+		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true));
+	}
 
 }
 

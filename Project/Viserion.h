@@ -5,7 +5,7 @@ class Viserion :
 {
 public:
 	Viserion();
-	Viserion(b2World & world, int width, sf::Vector2f postion, bool circle);
+	Viserion(b2World & world, int width, sf::Vector2i postion, bool circle);
 	~Viserion();
 };
 
