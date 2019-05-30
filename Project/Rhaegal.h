@@ -5,7 +5,7 @@ class Rhaegal :
 {
 public:
 	Rhaegal();
-	Rhaegal(b2World & world, int width, sf::Vector2f postion);
+	Rhaegal(b2World & world, int width, sf::Vector2f postion, bool circle);
 	~Rhaegal();
 };
 

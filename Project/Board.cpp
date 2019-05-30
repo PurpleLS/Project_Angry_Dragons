@@ -51,15 +51,15 @@ void Board::readBoard(ifstream & file, b2World & world)
 			switch (c)
 			{
 			case '#': // Rock
-				m_objects.push_back(std::make_unique<Rock>(world, count, sf::Vector2f(i,j)));
+				m_objects.push_back(std::make_unique<Rock>(world, count, sf::Vector2f(i,j), false));
 				break;
-			case '&': // wood
-				m_objects.push_back(std::make_unique<Wood>(world, count, sf::Vector2f(i, j)));
+			case '&': // woo
+				m_objects.push_back(std::make_unique<Wood>(world, count, sf::Vector2f(i, j), false));
 			case'@': // Ice
-				m_objects.push_back(std::make_unique<Ice>(world, count, sf::Vector2f(i, j)));
+				m_objects.push_back(std::make_unique<Ice>(world, count, sf::Vector2f(i, j), false));
 				break;
 			case'!': // Guards
-				m_objects.push_back(std::make_unique<Guards>(world, count, sf::Vector2f(i, j)));
+				m_objects.push_back(std::make_unique<Guards>(world, count, sf::Vector2f(i, j), true));
 				break;
 			case' ':
 				break;

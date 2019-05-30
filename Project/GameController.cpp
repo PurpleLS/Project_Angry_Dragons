@@ -36,13 +36,13 @@ void GameController::readLevel(ifstream & file)
 
 	int j = 0;
 	for(int i = 0; i < dragonsD; ++i)
- 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, sf::Vector2f(10.f, j*10.f)));
+ 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, sf::Vector2f(10.f, j*10.f),true));
 	j += dragonsD;
 	for (int i = 0; i < dragonsV; ++i)
-		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, sf::Vector2f(10.f, i * 10.f)));
+		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, sf::Vector2f(10.f, i * 10.f), true));
 	j += dragonsV;
 	for (int i = 0; i < dragonsR; ++i)
-		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, sf::Vector2f(10.f, i * 10.f)));
+		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, sf::Vector2f(10.f, i * 10.f), true));
 
 	m_board.readBoard(file, *m_world);
 }
@@ -55,7 +55,7 @@ void GameController::run()
 		sf::Sprite GroundSprite;
 		GroundSprite.setTexture(*Graphics::getInstance().getTexture(7));
 		GroundSprite.setOrigin(400.f, 8.f);
-		GroundSprite.setScale(1920 / GroundSprite.getGlobalBounds().width, 100 / GroundSprite.getGlobalBounds().height);
+ 		GroundSprite.setScale(1920 / GroundSprite.getGlobalBounds().width, 100 / GroundSprite.getGlobalBounds().height);
 		
 		
 	while (m_window.isOpen())
@@ -68,6 +68,14 @@ void GameController::run()
 		m_window.draw(GroundSprite);
 		print();
 		m_window.display();
+
+		for (sf::Event event; m_window.pollEvent(event);)
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				m_window.close();
+			}
+		}
 	}
 }
 
