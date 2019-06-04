@@ -21,9 +21,7 @@ GameController::GameController(ifstream & file)
 
 	readLevel(file);
 
-	createGround(*m_world, 400.f, 701.f);
-
-	
+	// createGround(*m_world, 400.f, 701.f);
 }
 
 
@@ -45,20 +43,24 @@ void GameController::readLevel(ifstream & file)
 	int j = 0;
 	for (int i = 0; i < dragonsD; ++i)
 	{
-		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
+		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
+		vi = sf::Vector2i(j * 5, 10);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
+		++j;
 	}
-	j += dragonsD;
 	for (int i = 0; i < dragonsV; ++i)
 	{
-		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
+		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
+		vi = sf::Vector2i(j * 5, 10);
 		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
+		++j;
 	}
-	j += dragonsV;
 	for (int i = 0; i < dragonsR; ++i)
 	{
-		vi = m_window.mapCoordsToPixel(sf::Vector2f(10.f, j*1.f));
-		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true));
+		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
+		vi = sf::Vector2i(j * 5, 10);
+		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true)); 
+		++j;
 	}
 
 }
@@ -69,7 +71,7 @@ void GameController::run()
 
 	while (m_window.isOpen())
 	{
-		m_world->Step(1/120.f, 8, 3);
+		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
 		print();
 		m_window.display();
@@ -88,21 +90,21 @@ void GameController::print()
 {
 	b2Body* bodyIterator = m_world->GetBodyList();
 	
-	m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
-	m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
+	// m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
+	// m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
 
-	m_window.draw(m_groundSprite);
-	std::cout << bodyIterator->GetPosition().x  << " " << bodyIterator->GetPosition().y << endl;
+	//m_window.draw(m_groundSprite);
+	//std::cout << bodyIterator->GetPosition().x  << " " << bodyIterator->GetPosition().y << endl;
 
-	bodyIterator = bodyIterator->GetNext();
+	//bodyIterator = bodyIterator->GetNext();
 
-	for (int i = 0; bodyIterator; bodyIterator = bodyIterator->GetNext())
+	for (int i = 0; bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
 	{
-		if (i >= m_dragons.size())
-			break;
 		m_dragons[i]->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
 		m_window.draw(m_dragons[i]->getSprite());
 		i++;
+		if (i >= m_dragons.size())
+			break;
 	}
 	m_board.print(m_window, *m_world, bodyIterator);
 }

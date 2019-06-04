@@ -15,22 +15,22 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool c
 
 	// sf::Vector2i i = mapCoordsToPixel(position);
 
-	bodyDef.position = b2Vec2(position.x, position.y);
-	bodyDef.type = b2_staticBody; //b2_dynamicBody;
+	bodyDef.position = b2Vec2((float32)position.x, (float32)position.y);
+	bodyDef.type = b2_staticBody; // b2_dynamicBody;
 	m_body = world.CreateBody(&bodyDef);
 
-	if (circle)
+	/*if (circle)
 		circleShape.m_radius = 30;
-	else
-		boxShape.SetAsBox(((50.f / 2)*width) / SCALE, (50.f / 2) / SCALE);
+	else*/
+	boxShape.SetAsBox(((50.f / 2)*width) / SCALE, (50.f / 2) / SCALE);
 
 	fixtureDef.density = 1.f;
 	fixtureDef.friction = 0.7f;
 
-	if (circle)
-		fixtureDef.shape = &circleShape;
-	else
-		fixtureDef.shape = &boxShape;
+	//if (circle)
+	//	fixtureDef.shape = &circleShape;
+	//else
+	fixtureDef.shape = &boxShape;
 
 	m_body->CreateFixture(&fixtureDef);
 
