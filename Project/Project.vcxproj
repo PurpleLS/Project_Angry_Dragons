@@ -149,6 +149,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Dragons.h" />
     <ClInclude Include="Drogon.h" />
+    <ClInclude Include="FooDebugDraw.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Ice.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Dragons.cpp" />
     <ClCompile Include="Drogon.cpp" />
+    <ClCompile Include="FooDebugDraw.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Ice.cpp" />

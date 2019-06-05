@@ -15,7 +15,7 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool c
 	m_width = width;
 	// sf::Vector2i i = mapCoordsToPixel(position);
 	bodyDef.userData = this;
-	bodyDef.position = b2Vec2(((float32)position.x), (float32)position.y);
+	bodyDef.position = b2Vec2(((float32)position.x) + ((width/2)*5), (float32)position.y);
 	bodyDef.type = b2_dynamicBody; // b2_staticBody;
 	m_body = world.CreateBody(&bodyDef);
 
@@ -53,7 +53,7 @@ GameObject::~GameObject()
 
 void GameObject::print(const b2Vec2 position, float32 y)
 {
-	m_sprite.setPosition(position.x * SCALE, position.y * SCALE);
+	m_sprite.setPosition((position.x -(m_width/2)*5)* SCALE, position.y * SCALE);
 	// m_sprite.setPosition((position.x * SCALE)-(m_width/2)* 50.f , position.y * SCALE);
 	//m_sprite.setOrigin(position.x * SCALE, position.y * SCALE);
 	m_sprite.setRotation(180 / b2_pi * y);
