@@ -5,7 +5,7 @@
 
 
 
-const float SCALE = 20.f;
+const float SCALE = 10.f;
 
 class GameObject
 {
@@ -18,5 +18,6 @@ public:
 protected:
 	b2Body* m_body;
 	sf::Sprite m_sprite;
+	int m_width;
 };
 

@@ -13,7 +13,8 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
+// 	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
+	m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
@@ -21,7 +22,7 @@ GameController::GameController(ifstream & file)
 
 	readLevel(file);
 
-	// createGround(*m_world, 400.f, 701.f);
+	createGround(*m_world, 400.f, 500.f);
 }
 
 
@@ -44,6 +45,7 @@ void GameController::readLevel(ifstream & file)
 	for (int i = 0; i < dragonsD; ++i)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
+		// vi = sf::Vector2i(10, j * 5);
 		vi = sf::Vector2i(j * 5, 10);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
 		++j;
@@ -89,15 +91,24 @@ void GameController::run()
 void GameController::print()
 {
 	b2Body* bodyIterator = m_world->GetBodyList();
+	bodyIterator = bodyIterator->GetNext();
+	for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
+	{
+		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
+		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
+		m_window.draw(go->getSprite());
+	}
+	/*
+	b2Body* bodyIterator = m_world->GetBodyList();
 	
-	// m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
-	// m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
+	m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
+	m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
 
-	//m_window.draw(m_groundSprite);
-	//std::cout << bodyIterator->GetPosition().x  << " " << bodyIterator->GetPosition().y << endl;
+	m_window.draw(m_groundSprite);
+	// std::cout << bodyIterator->GetPosition().x  << " " << bodyIterator->GetPosition().y << endl;
+	GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
 
-	//bodyIterator = bodyIterator->GetNext();
-
+	bodyIterator = bodyIterator->GetNext();
 	for (int i = 0; bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
 	{
 		m_dragons[i]->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
@@ -107,6 +118,7 @@ void GameController::print()
 			break;
 	}
 	m_board.print(m_window, *m_world, bodyIterator);
+	*/
 }
 
 //creates ground
@@ -117,7 +129,7 @@ void GameController::createGround(b2World & World, float X, float Y)
 	b2BodyDef bodyDef;
 	b2PolygonShape shape;
 
-	bodyDef.position = b2Vec2(400 / SCALE, 500 / SCALE); //   400.f, 701.f)
+	bodyDef.position = b2Vec2(X / SCALE, Y / SCALE); //   400.f, 701.f)
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
 	shape.SetAsBox((800.f / 2) / SCALE, ( 16.f / 2) / SCALE); // /SCALE

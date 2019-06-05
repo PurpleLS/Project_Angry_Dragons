@@ -12,11 +12,11 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool c
 	b2BodyDef bodyDef;
 	b2CircleShape circleShape;
 	b2PolygonShape boxShape;
-
+	m_width = width;
 	// sf::Vector2i i = mapCoordsToPixel(position);
-
-	bodyDef.position = b2Vec2((float32)position.x, (float32)position.y);
-	bodyDef.type = b2_staticBody; // b2_dynamicBody;
+	bodyDef.userData = this;
+	bodyDef.position = b2Vec2(((float32)position.x), (float32)position.y);
+	bodyDef.type = b2_dynamicBody; // b2_staticBody;
 	m_body = world.CreateBody(&bodyDef);
 
 	/*if (circle)
@@ -53,6 +53,8 @@ GameObject::~GameObject()
 
 void GameObject::print(const b2Vec2 position, float32 y)
 {
-	m_sprite.setPosition(position.x * 10, position.y * 10);
+	m_sprite.setPosition(position.x * SCALE, position.y * SCALE);
+	// m_sprite.setPosition((position.x * SCALE)-(m_width/2)* 50.f , position.y * SCALE);
+	//m_sprite.setOrigin(position.x * SCALE, position.y * SCALE);
 	m_sprite.setRotation(180 / b2_pi * y);
 }
