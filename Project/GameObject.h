@@ -5,7 +5,7 @@
 
 
 
-const float SCALE = 10.f;
+const float SCALE = 30.f;
 
 class GameObject
 {

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include "Box2D/Box2D.h"
+#include "b2GLDraw.h"
 
 using std::ifstream;
 using std::cout;
@@ -28,8 +29,8 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 private:
+	b2GLDraw m_debugdrawinstance;
 	std::unique_ptr<b2World> m_world;
-	
 	sf::RenderWindow m_window;
 	Board m_board;
 	Menu m_menu;

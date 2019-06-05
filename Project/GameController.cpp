@@ -5,6 +5,7 @@
 
 
 
+
 GameController::GameController()
 {
 	
@@ -13,12 +14,23 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-// 	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
-	m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
+   	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
+	// m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
+	
+	
+	m_world->SetDebugDraw(&m_debugdrawinstance);
+	uint32 flags = 0;
+	flags += b2Draw::e_aabbBit;
+	flags += b2Draw::e_centerOfMassBit;
+	flags += b2Draw::e_jointBit;
+	flags += b2Draw::e_pairBit;
+	flags += b2Draw::e_shapeBit;
+	m_debugdrawinstance.SetFlags(flags);
+
 
 	readLevel(file);
 
@@ -46,21 +58,22 @@ void GameController::readLevel(ifstream & file)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
 		// vi = sf::Vector2i(10, j * 5);
-		vi = sf::Vector2i(j * 5, 10);
+		// vi = sf::Vector2i(j * 5, 10);
+		vi = sf::Vector2i(j, 1);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsV; ++i)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
-		vi = sf::Vector2i(j * 5, 10);
+		vi = sf::Vector2i(j, 1);
 		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsR; ++i)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
-		vi = sf::Vector2i(j * 5, 10);
+		vi = sf::Vector2i(j, 1);
 		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true)); 
 		++j;
 	}
@@ -71,11 +84,14 @@ void GameController::run()
 {
 	b2Body* BodyIterator = m_world->GetBodyList();	
 
+
+
 	while (m_window.isOpen())
 	{
 		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
 		print();
+		m_world->DrawDebugData();
 		m_window.display();
 
 		for (sf::Event event; m_window.pollEvent(event);)
@@ -91,13 +107,19 @@ void GameController::run()
 void GameController::print()
 {
 	b2Body* bodyIterator = m_world->GetBodyList();
+
+	m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
+	m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
+	m_window.draw(m_groundSprite);
 	bodyIterator = bodyIterator->GetNext();
+
 	for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
 	{
 		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
 		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
-		m_window.draw(go->getSprite());
+		// m_window.draw(go->getSprite());
 	}
+	
 	/*
 	b2Body* bodyIterator = m_world->GetBodyList();
 	
@@ -129,17 +151,17 @@ void GameController::createGround(b2World & World, float X, float Y)
 	b2BodyDef bodyDef;
 	b2PolygonShape shape;
 
-	bodyDef.position = b2Vec2(X / SCALE, Y / SCALE); //   400.f, 701.f)
+	bodyDef.position = b2Vec2(960 / SCALE, 750 / SCALE); //   400.f, 701.f)
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
-	shape.SetAsBox((800.f / 2) / SCALE, ( 16.f / 2) / SCALE); // /SCALE
+	shape.SetAsBox((1920.f / 2) / SCALE, ( 50.f / 2) / SCALE); // /SCALE
 	fixtureDef.density = 0.0f;
 	fixtureDef.shape = &shape;
 	body->CreateFixture(&fixtureDef);
 
 	m_groundSprite.setTexture(*Graphics::getInstance().getTexture(7));
 
-	m_groundSprite.setOrigin(400.f, 8.f);
+	m_groundSprite.setOrigin(960.f, 25.f);
 	// m_groundSprite.setScale(1920 / m_groundSprite.getGlobalBounds().width, 100 / m_groundSprite.getGlobalBounds().height);
 
 	/*

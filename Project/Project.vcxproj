@@ -23,7 +23,7 @@
     <ProjectGuid>{C38F4E09-CCB3-4A42-AFEC-0A901C12DA1A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Project</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -108,7 +108,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)\Project\box2d\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,11 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="b2GLDraw.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Dragons.h" />
     <ClInclude Include="Drogon.h" />
-    <ClInclude Include="FooDebugDraw.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="glext.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Ice.h" />
     <ClInclude Include="LevelManager.h" />
@@ -167,10 +168,10 @@
     <ClInclude Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="b2GLDraw.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Dragons.cpp" />
     <ClCompile Include="Drogon.cpp" />
-    <ClCompile Include="FooDebugDraw.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Ice.cpp" />

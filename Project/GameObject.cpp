@@ -6,7 +6,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool circle)
+GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle)
 {
 	b2FixtureDef fixtureDef;
 	b2BodyDef bodyDef;
@@ -15,8 +15,8 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool c
 	m_width = width;
 	// sf::Vector2i i = mapCoordsToPixel(position);
 	bodyDef.userData = this;
-	bodyDef.position = b2Vec2(((float32)position.x) + ((width/2)*5), (float32)position.y);
-	bodyDef.type = b2_dynamicBody; // b2_staticBody;
+	bodyDef.position = b2Vec2((960 + (vi.x + (width-0.5)/2)*50)  / SCALE, (100 + vi.y*50) / SCALE);
+	bodyDef.type = b2_dynamicBody; // b2_staticBody; 
 	m_body = world.CreateBody(&bodyDef);
 
 	/*if (circle)
@@ -33,7 +33,7 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i position, bool c
 	fixtureDef.shape = &boxShape;
 
 	m_body->CreateFixture(&fixtureDef);
-
+	m_sprite.setOrigin(50.f, 50.f);
 	////circleShape.m_p.Set(0, 0); //position, relative to body position
 	//// Shape.m_radius = 10;
 

@@ -69,7 +69,10 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FooDebugDraw.h">
+    <ClInclude Include="b2GLDraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,7 +134,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FooDebugDraw.cpp">
+    <ClCompile Include="b2GLDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -58,22 +58,23 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 			{
 			case '#': // Rock
 				// vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
-				vi = sf::Vector2i(j * 5 + 30, i * 5);
+				// vi = sf::Vector2i(j * 5 + 30, i * 5);
+				vi = sf::Vector2i(j , i );
 				m_objects.push_back(std::make_unique<Rock>(world, count, vi, false));
 				break;
 			case '&': // wood
 				// vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
-				vi = sf::Vector2i(j * 5 + 30, i * 5);
+				vi = sf::Vector2i(j , i);
 				m_objects.push_back(std::make_unique<Wood>(world, count, vi, false));
 				break;
 			case'@': // Ice
 				// vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
-				vi = sf::Vector2i(j * 5 + 30, i * 5);
+				vi = sf::Vector2i(j , i);
 				m_objects.push_back(std::make_unique<Ice>(world, count, vi, false));
 				break;
 			case'!': // Guards
 				// vi = window.mapCoordsToPixel(sf::Vector2f(j * 5.f, i * 5.f));
-				vi = sf::Vector2i(j * 5 + 30, i * 5);
+				vi = sf::Vector2i(j, i);
 				m_objects.push_back(std::make_unique<Guards>(world, count, vi, true));
 				break;
 			}
