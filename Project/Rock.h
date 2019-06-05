@@ -4,7 +4,7 @@ class Rock :
 	public Wall
 {
 public:
-	Rock(b2World & world, int width, sf::Vector2i postion, bool circle);
+	Rock(b2World & world, int width, sf::Vector2i position, bool circle);
 	void coillision() override;
 };
 

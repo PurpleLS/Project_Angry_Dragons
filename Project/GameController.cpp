@@ -59,21 +59,21 @@ void GameController::readLevel(ifstream & file)
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
 		// vi = sf::Vector2i(10, j * 5);
 		// vi = sf::Vector2i(j * 5, 10);
-		vi = sf::Vector2i(j, 1);
+		vi = sf::Vector2i(j - 18 , 1);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsV; ++i)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
-		vi = sf::Vector2i(j, 1);
+		vi = sf::Vector2i(j - 18, 1);
 		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsR; ++i)
 	{
 		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
-		vi = sf::Vector2i(j, 1);
+		vi = sf::Vector2i(j - 18, 1);
 		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true)); 
 		++j;
 	}
@@ -117,7 +117,8 @@ void GameController::print()
 	{
 		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
 		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
-		// m_window.draw(go->getSprite());
+		m_window.draw(go->getSprite());
+		// m_window.display();
 	}
 	
 	/*
@@ -155,7 +156,7 @@ void GameController::createGround(b2World & World, float X, float Y)
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
 	shape.SetAsBox((1920.f / 2) / SCALE, ( 50.f / 2) / SCALE); // /SCALE
-	fixtureDef.density = 0.0f;
+	fixtureDef.density = 0.f;
 	fixtureDef.shape = &shape;
 	body->CreateFixture(&fixtureDef);
 

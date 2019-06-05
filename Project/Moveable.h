@@ -6,7 +6,7 @@ class Moveable :
 public:
 	Moveable();
 	~Moveable();
-	Moveable(b2World & world, int width, sf::Vector2i postion, bool circle) : GameObject(world, width, postion, circle) {}
+	Moveable(b2World & world, int width, sf::Vector2i position, bool circle) : GameObject(world, width, position, circle) {}
 	virtual void move() = 0;
 
 };

@@ -5,7 +5,7 @@ class Dragons :
 {
 public:
 	Dragons();
-	Dragons(b2World & world, int width, sf::Vector2i postion, bool circle) : Moveable(world, width, postion, circle) {}
+	Dragons(b2World & world, int width, sf::Vector2i position, bool circle) : Moveable(world, width, position, circle) {}
 	~Dragons();
 	virtual void move();
 };
