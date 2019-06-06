@@ -11,7 +11,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(b2World & world, int width, sf::Vector2i position, bool circle);
+	GameObject(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize);
 	~GameObject();
 	void print(const b2Vec2 position, float32 y);
 	sf::Sprite getSprite() const { return m_sprite; }

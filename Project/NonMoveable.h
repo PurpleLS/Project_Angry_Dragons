@@ -5,7 +5,8 @@ class NonMoveable :
 {
 public:
 	NonMoveable();
-	NonMoveable(b2World & world, int width, sf::Vector2i position, bool circle) : GameObject(world, width,position, circle){}
+	NonMoveable(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
+		: GameObject(world, width,position, circle, windowSize){}
 	~NonMoveable();
 	virtual void coillision() = 0;
 };

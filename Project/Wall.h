@@ -5,7 +5,8 @@ class Wall :
 {
 public:
 	Wall();
-	Wall(b2World & world, int width, sf::Vector2i position, bool circle) : NonMoveable(world, width, position, circle) {}
+	Wall(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
+		: NonMoveable(world, width, position, circle, windowSize) {}
 	~Wall();
 	virtual void coillision() = 0;
 };

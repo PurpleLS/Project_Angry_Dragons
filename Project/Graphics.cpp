@@ -4,7 +4,7 @@
 
 Graphics::Graphics()
 {
-	m_pictures.resize(8);
+	m_pictures.resize(9);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.jpg")   ) { std::cerr << "error in loading picture 1\n";};
 	if (!m_pictures[2].loadFromFile("Pictures/ice_icon.jpg")    ) { std::cerr << "error in loading picture 2\n";};
@@ -13,6 +13,7 @@ Graphics::Graphics()
 	if (!m_pictures[5].loadFromFile("Pictures/dragon2_icon.png")) { std::cerr << "error in loading picture 5\n";}; // rhaegal
 	if (!m_pictures[6].loadFromFile("Pictures/dragon3_icon.png")) { std::cerr << "error in loading picture 6\n";}; // viserion
 	if (!m_pictures[7].loadFromFile("Pictures/ground_icon.png") ) { std::cerr << "error in loading picture 7\n";}; // ground
+	if (!m_pictures[8].loadFromFile("Pictures/background_icon.png")) { std::cerr << "error in loading picture 7\n"; };
 }
 
 const sf::Texture * Graphics::getTexture(int index) const

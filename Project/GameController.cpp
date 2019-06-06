@@ -2,7 +2,7 @@
 #include "Drogon.h"
 #include "Rhaegal.h"
 #include "Viserion.h"
-
+#include "Graphics.h"
 
 
 
@@ -14,7 +14,7 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-   	m_window.create(sf::VideoMode(1920, 800, 32), "Angry Dragons", sf::Style::Close);
+   	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
 	// m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
@@ -57,19 +57,19 @@ void GameController::readLevel(ifstream & file)
 	for (int i = 0; i < dragonsD; ++i)
 	{
 		vi = sf::Vector2i(j - 18 , 1);
-		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
+		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
 	for (int i = 0; i < dragonsV; ++i)
 	{
 		vi = sf::Vector2i(j - 18, 1);
-		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
+		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
 	for (int i = 0; i < dragonsR; ++i)
 	{
 		vi = sf::Vector2i(j - 18, 1);
-		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true)); 
+		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
 
@@ -78,6 +78,11 @@ void GameController::readLevel(ifstream & file)
 void GameController::run()
 {
 	b2Body* BodyIterator = m_world->GetBodyList();	
+	sf::RectangleShape m_back;
+	m_back.setPosition({0, 0});
+	m_back.setSize({(float)m_window.getSize().x, (float)m_window.getSize().y});
+	m_back.setTexture(Graphics::getInstance().getTexture(8));
+
 
 
 
@@ -85,16 +90,18 @@ void GameController::run()
 	{
 		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
+		m_window.draw(m_back);
 		print();
 		m_world->DrawDebugData();
 		m_window.display();
 
 		for (sf::Event event; m_window.pollEvent(event);)
 		{
-			if (event.type == sf::Event::Closed)
-			{
+			if (event.type == sf::Event::Closed )
 				m_window.close();
-			}
+			if(event.type == sf::Event::KeyReleased)
+				if(event.key.code == sf::Keyboard::Escape)
+					m_window.close();
 		}
 	}
 }
@@ -146,7 +153,7 @@ void GameController::createGround(b2World & World, float X, float Y)
 	b2BodyDef bodyDef;
 	b2PolygonShape shape;
 
-	bodyDef.position = b2Vec2(960 / SCALE, 750 / SCALE);
+	bodyDef.position = b2Vec2(960 / SCALE,  m_window.getSize().y * (7/5) / SCALE);
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
 	shape.SetAsBox((1920.f / 2) / SCALE, ( 50.f / 2) / SCALE);
