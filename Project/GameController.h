@@ -25,6 +25,7 @@ public:
 	GameController(ifstream &file);
 	~GameController();
 	void readLevel(ifstream &file);
+	void eventhandler();
 	void run();
 	void print();
 	void createGround(b2World& World, float X, float Y);

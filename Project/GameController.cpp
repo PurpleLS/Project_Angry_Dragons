@@ -35,6 +35,7 @@ GameController::GameController(ifstream & file)
 	readLevel(file);
 
 	createGround(*m_world, 400.f, 500.f);
+	
 }
 
 
@@ -56,19 +57,19 @@ void GameController::readLevel(ifstream & file)
 	int j = 0;
 	for (int i = 0; i < dragonsD; ++i)
 	{
-		vi = sf::Vector2i(j - 18 , 1);
+		vi = sf::Vector2i(-18  , j+1);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
 	for (int i = 0; i < dragonsV; ++i)
 	{
-		vi = sf::Vector2i(j - 18, 1);
+		vi = sf::Vector2i(-18 , j+1);
 		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
 	for (int i = 0; i < dragonsR; ++i)
 	{
-		vi = sf::Vector2i(j - 18, 1);
+		vi = sf::Vector2i(-18, j+1);
 		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
@@ -92,16 +93,46 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		m_world->DrawDebugData();
+		// m_world->DrawDebugData();
 		m_window.display();
+		eventhandler();
 
-		for (sf::Event event; m_window.pollEvent(event);)
+	/*	for (sf::Event event; m_window.pollEvent(event);)
 		{
 			if (event.type == sf::Event::Closed )
 				m_window.close();
 			if(event.type == sf::Event::KeyReleased)
 				if(event.key.code == sf::Keyboard::Escape)
 					m_window.close();
+		}*/
+	}
+}
+
+void GameController::eventhandler()
+{
+	sf::Event event;
+	while (m_window.pollEvent(event))
+	{
+
+		switch (event.type)
+		{
+		case sf::Event::Closed:
+			m_window.close();
+			break;
+
+		case sf::Event::KeyReleased:
+			if (event.key.code == sf::Keyboard::Escape)
+				m_window.close();
+			break;
+		
+		case sf::Event::MouseButtonPressed:
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+
+			}
+
+
 		}
 	}
 }
