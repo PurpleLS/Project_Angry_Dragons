@@ -16,7 +16,7 @@ public:
 	void print(const b2Vec2 position, float32 y);
 	sf::Sprite getSprite() const { return m_sprite; }
 protected:
-	b2Body* m_body;
+	b2Body* m_body; // ??????
 	sf::Sprite m_sprite;
 	int m_width;
 };

@@ -22,14 +22,14 @@ GameController::GameController(ifstream & file)
 	m_world = std::make_unique<b2World>(m_gravity);
 	
 	
-	m_world->SetDebugDraw(&m_debugdrawinstance);
+	m_world->SetDebugDraw(&m_debugDrawInstance);
 	uint32 flags = 0;
 	flags += b2Draw::e_aabbBit;
 	flags += b2Draw::e_centerOfMassBit;
 	flags += b2Draw::e_jointBit;
 	flags += b2Draw::e_pairBit;
 	flags += b2Draw::e_shapeBit;
-	m_debugdrawinstance.SetFlags(flags);
+	m_debugDrawInstance.SetFlags(flags);
 
 
 	readLevel(file);
@@ -56,23 +56,18 @@ void GameController::readLevel(ifstream & file)
 	int j = 0;
 	for (int i = 0; i < dragonsD; ++i)
 	{
-		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
-		// vi = sf::Vector2i(10, j * 5);
-		// vi = sf::Vector2i(j * 5, 10);
 		vi = sf::Vector2i(j - 18 , 1);
 		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsV; ++i)
 	{
-		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
 		vi = sf::Vector2i(j - 18, 1);
 		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true));
 		++j;
 	}
 	for (int i = 0; i < dragonsR; ++i)
 	{
-		// vi = m_window.mapCoordsToPixel(sf::Vector2f(j * 5.f, 10.f));
 		vi = sf::Vector2i(j - 18, 1);
 		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true)); 
 		++j;
@@ -118,7 +113,6 @@ void GameController::print()
 		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
 		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
 		m_window.draw(go->getSprite());
-		// m_window.display();
 	}
 	
 	/*
@@ -152,44 +146,17 @@ void GameController::createGround(b2World & World, float X, float Y)
 	b2BodyDef bodyDef;
 	b2PolygonShape shape;
 
-	bodyDef.position = b2Vec2(960 / SCALE, 750 / SCALE); //   400.f, 701.f)
+	bodyDef.position = b2Vec2(960 / SCALE, 750 / SCALE);
 	bodyDef.type = b2_staticBody;
 	body = World.CreateBody(&bodyDef);
-	shape.SetAsBox((1920.f / 2) / SCALE, ( 50.f / 2) / SCALE); // /SCALE
+	shape.SetAsBox((1920.f / 2) / SCALE, ( 50.f / 2) / SCALE);
 	fixtureDef.density = 0.f;
 	fixtureDef.shape = &shape;
 	body->CreateFixture(&fixtureDef);
 
 	m_groundSprite.setTexture(*Graphics::getInstance().getTexture(7));
 
-	m_groundSprite.setOrigin(960.f, 25.f);
+	m_groundSprite.setOrigin(960.f, 25.f); // ????????????
 	// m_groundSprite.setScale(1920 / m_groundSprite.getGlobalBounds().width, 100 / m_groundSprite.getGlobalBounds().height);
-
-	/*
-		b2FixtureDef fixtureDef;
-	b2BodyDef bodyDef;
-	b2CircleShape circleShape;
-	b2PolygonShape boxShape;
-	if (circle)
-		circleShape.m_radius = 10;
-	else
-		boxShape.SetAsBox((50.f / 2) / SCALE, (50.f / 2) / SCALE);
-
-	bodyDef.position = b2Vec2(position.x/ SCALE, position.y/ SCALE);
-	bodyDef.type = b2_dynamicBody;
-	m_body = world.CreateBody(&bodyDef);
-
-	//circleShape.m_p.Set(0, 0); //position, relative to body position
-	// Shape.m_radius = 10;
-	fixtureDef.density = 1.f;
-	fixtureDef.friction = 0.7f;
-	if (circle)
-		fixtureDef.shape = &circleShape;
-	else
-		fixtureDef.shape = &boxShape;
-
-	m_body->CreateFixture(&fixtureDef);
-	m_sprite.setPosition(position);
-	*/
 
 }

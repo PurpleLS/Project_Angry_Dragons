@@ -29,7 +29,7 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 private:
-	b2GLDraw m_debugdrawinstance;
+	b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
 	sf::RenderWindow m_window;
 	Board m_board;
