@@ -93,7 +93,7 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		// m_world->DrawDebugData();
+		m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
 
