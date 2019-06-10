@@ -29,6 +29,7 @@ public:
 	void run();
 	void print();
 	void createGround(b2World& World, float X, float Y);
+	void checkActive();
 private:
 	b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
@@ -38,4 +39,3 @@ private:
 	vector<std::unique_ptr<Dragons>> m_dragons;
 	sf::Sprite m_groundSprite;
 };
-

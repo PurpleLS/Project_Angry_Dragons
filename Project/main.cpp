@@ -27,8 +27,9 @@ using std::endl;
 
 int main() 
 {
-	// srand((unsigned)time(NULL));
-	// Open file 
+	srand((unsigned)time(0));
+	// Open file
+
 	ifstream file("AngryD.txt");
 	if (!file.is_open())
 	{

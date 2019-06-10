@@ -9,5 +9,6 @@ public:
 		: GameObject(world, width,position, circle, windowSize){}
 	~NonMoveable();
 	virtual void coillision() = 0;
+	
 };
 

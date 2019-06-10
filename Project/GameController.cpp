@@ -6,6 +6,7 @@
 
 
 
+
 GameController::GameController()
 {
 	
@@ -43,7 +44,6 @@ GameController::~GameController()
 {	
 }
 
-
 void GameController::readLevel(ifstream & file)
 {
 	// Life and points always start the same, get board rows, columns and level time from file 
@@ -55,6 +55,7 @@ void GameController::readLevel(ifstream & file)
 	sf::Vector2i vi;
 
 	int j = 0;
+	/*
 	for (int i = 0; i < dragonsD; ++i)
 	{
 		vi = sf::Vector2i(-18  , j+1);
@@ -73,7 +74,33 @@ void GameController::readLevel(ifstream & file)
 		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
 		++j;
 	}
-
+	*/
+	while (dragonsD != 0 || dragonsV != 0 || dragonsR != 0)
+	{
+		int i = rand() % 3;
+		if (i == 0 && dragonsD != 0)
+		{
+			vi = sf::Vector2i(-18, j + 1);
+			m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
+			dragonsD--;
+			++j;
+		}
+		else if(i == 1 && dragonsV != 0)
+		{
+			vi = sf::Vector2i(-18, j + 1);
+			m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
+			dragonsV--;
+			++j;
+		}
+		else if(i == 2 && dragonsR != 0)
+		{
+			vi = sf::Vector2i(-18, j + 1);
+			m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
+			dragonsR--;
+			++j;
+		}
+	}
+	
 }
 
 void GameController::run()
@@ -89,6 +116,7 @@ void GameController::run()
 
 	while (m_window.isOpen())
 	{
+		checkActive();
 		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
@@ -96,15 +124,6 @@ void GameController::run()
 		m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
-
-	/*	for (sf::Event event; m_window.pollEvent(event);)
-		{
-			if (event.type == sf::Event::Closed )
-				m_window.close();
-			if(event.type == sf::Event::KeyReleased)
-				if(event.key.code == sf::Keyboard::Escape)
-					m_window.close();
-		}*/
 	}
 }
 
@@ -129,6 +148,7 @@ void GameController::eventhandler()
 			if (event.mouseButton.button == sf::Mouse::Left)
 			{
 				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+				// if()
 
 			}
 
@@ -197,4 +217,47 @@ void GameController::createGround(b2World & World, float X, float Y)
 	m_groundSprite.setOrigin(960.f, 25.f); // ????????????
 	// m_groundSprite.setScale(1920 / m_groundSprite.getGlobalBounds().width, 100 / m_groundSprite.getGlobalBounds().height);
 
+	//create slingshot
+	/*b2Body* body2;
+	b2FixtureDef fixtureDef2;
+	b2BodyDef bodyDef2;
+	b2PolygonShape shape2;
+
+	bodyDef2.position = b2Vec2((m_window.getSize().x / (6 * SCALE)), (m_window.getSize().y / (1.2f*SCALE)));
+	bodyDef2.type = b2_staticBody;
+	body2 = World.CreateBody(&bodyDef2);
+	shape2.SetAsBox((50.f / 2) / SCALE, (100.f / 2) / SCALE);
+	fixtureDef2.density = 0.f;
+	fixtureDef2.shape = &shape2;
+	body2->CreateFixture(&fixtureDef2);*/
+
+}
+
+void GameController::checkActive()
+{
+	bool x = false;
+	for (int i = 0; i < m_dragons.size(); i++)
+	{
+		if (m_dragons[i]->getActive())
+		{
+			x = true;
+			break;
+		}
+	}
+	if (!x)
+	{
+		b2Body* bodyIterator = m_world->GetBodyList();
+		m_dragons[m_dragons.size() - 1]->setActive();
+		bodyIterator = bodyIterator->GetNext();
+		for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
+		{
+			GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
+			if(go == m_dragons[m_dragons.size() - 1].get())
+			{
+				Dragons* Dgo = static_cast<Dragons*>(bodyIterator->GetUserData());
+				if (Dgo->getActive())
+					bodyIterator->SetTransform(b2Vec2{ (m_window.getSize().x / (6 * SCALE)), (m_window.getSize().y / (1.2f*SCALE)) }, 0);
+			}
+		}
+	}
 }

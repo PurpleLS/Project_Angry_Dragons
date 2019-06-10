@@ -16,7 +16,7 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 	//bodyDef.position = b2Vec2((960 + (vi.x + (width-0.5)/2)*50)  / SCALE, (200 + vi.y*50) / SCALE);
 	bodyDef.position = b2Vec2((windowSize.x / (2*SCALE)) + (vi.x)*(50 / SCALE) + 5 /*+((vi.x-1)* 50) +25  - ((width/2)*50)*/,
 							  (windowSize.y/SCALE) - 2.6 - (vi.y - 1)*(50 / SCALE) /* - 100 - ((vi.y - 1) * 50) - 25)*/);
-	bodyDef.type = b2_dynamicBody; /* b2_staticBody; */
+	bodyDef.type = b2_staticBody; /* b2_staticBody;b2_dynamicBody */
 	m_body = world.CreateBody(&bodyDef);
 
 	/*if (circle)
@@ -51,3 +51,4 @@ void GameObject::print(const b2Vec2 position, float32 y)
 	m_sprite.setPosition(location);
 	m_sprite.setRotation(180 / b2_pi * y);
 }
+
