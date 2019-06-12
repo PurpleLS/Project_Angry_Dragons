@@ -18,7 +18,7 @@ public:
 protected:
 	bool m_active;
 	bool m_start = false;
-	sf::Vector2f m_mousePositionStarti;
+	sf::Vector2f m_mousePositionStart;
 	sf::Vector2f m_mousePositionEnd;
 };
 
