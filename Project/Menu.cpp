@@ -27,11 +27,11 @@ void Menu::openingScreen(sf::RenderWindow & window)
 
 
 	playButton.setFillColor(sf::Color::Transparent);
-	playButton.setPosition({ 0, 0 });
-	playButton.setSize({ 150, 70 });
+	playButton.setPosition({(float)(window.getSize().x /2) - 100, (float)(window.getSize().y / 2)  + 200});
+	playButton.setSize({ 350, 200 });
 
 	playText.setPosition(playButton.getPosition());
-	playText.setCharacterSize(50);
+	playText.setCharacterSize(100);
 	playText.setFont(* Graphics::getInstance().getFont());
 	playText.setFillColor(sf::Color::White);
 	playText.setString("Play");
@@ -56,6 +56,12 @@ void Menu::openingScreen(sf::RenderWindow & window)
 		{
 			window.close();
 			exit(EXIT_SUCCESS);
+		}
+		if (event.type == sf::Event::KeyReleased)
+		{
+			if (event.key.code == sf::Keyboard::Escape)
+				window.close();
+			break;
 		}
 	}
 // background.setTexture(graphics.getTexture(12));

@@ -16,8 +16,8 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-	// m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
-	m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
+	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
+	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
@@ -82,7 +82,6 @@ void GameController::readLevel(ifstream & file)
 		if (i == 0 && dragonsD != 0)
 		{
 			vi = sf::Vector2i(-18, j + 1);
-			// vi = sf::Vector2i(m_window.getSize().x /10 , j + 1);
 			m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsD--;
 			++j;
@@ -153,10 +152,21 @@ void GameController::eventhandler()
 			if (event.mouseButton.button == sf::Mouse::Left)
 			{
 				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-				// if()
-
+				if (m_dragons[m_dragons.size() - 1]->getActive())
+				{
+					if (m_dragons[m_dragons.size() - 1]->getSprite().getGlobalBounds().contains(mousePos))
+					{
+						// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
+						m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
+					}
+				}
 			}
-
+			break;
+		case sf::Event::MouseButtonReleased:
+			sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+			// sf::Vector2 d = (mousePos - ) * FIRE_SPEED;
+			// object.setVelocity(d.x, d.y);
+			break;
 
 		}
 	}
@@ -261,7 +271,11 @@ void GameController::checkActive()
 			{
 				Dragons* Dgo = static_cast<Dragons*>(bodyIterator->GetUserData());
 				if (Dgo->getActive())
+				{
 					bodyIterator->SetTransform(b2Vec2{ (m_window.getSize().x / (6 * SCALE)), (m_window.getSize().y / (1.2f*SCALE)) }, 0);
+					bodyIterator->SetType(b2_staticBody);
+				}
+					
 			}
 		}
 	}
