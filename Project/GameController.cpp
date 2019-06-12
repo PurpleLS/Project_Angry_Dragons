@@ -3,6 +3,7 @@
 #include "Rhaegal.h"
 #include "Viserion.h"
 #include "Graphics.h"
+#include "Menu.h"
 
 
 
@@ -15,8 +16,8 @@ GameController::GameController()
 
 GameController::GameController(ifstream & file)
 {
-   	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
-	// m_window.create(sf::VideoMode(800, 600, 32), "Angry Dragons", sf::Style::Close);
+	// m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
+	m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
 	b2Vec2 m_gravity(0.0f, 9.8f);
@@ -81,6 +82,7 @@ void GameController::readLevel(ifstream & file)
 		if (i == 0 && dragonsD != 0)
 		{
 			vi = sf::Vector2i(-18, j + 1);
+			// vi = sf::Vector2i(m_window.getSize().x /10 , j + 1);
 			m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsD--;
 			++j;
@@ -105,6 +107,9 @@ void GameController::readLevel(ifstream & file)
 
 void GameController::run()
 {
+	Menu menu;
+	menu.openingScreen(m_window);
+
 	b2Body* BodyIterator = m_world->GetBodyList();	
 	sf::RectangleShape m_back;
 	m_back.setPosition({0, 0});
