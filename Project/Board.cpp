@@ -15,7 +15,7 @@ Board::~Board()
 {
 }
 
-void Board::print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterator)
+/* void Board::print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterator)
 {
 	bodyIterator = bodyIterator->GetNext();
 	for (int i = 0; i < m_objects.size(); ++i)
@@ -26,6 +26,13 @@ void Board::print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterat
 		window.draw(m_objects[i]->getSprite());
 		bodyIterator = bodyIterator->GetNext();
 	}
+}
+*/
+
+void Board::print(sf::RenderWindow & window)
+{
+	for (int i = 0; i < m_objects.size(); i++)
+		m_objects[i]->print(window);
 }
 
 void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & window)
@@ -61,17 +68,14 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 				m_objects.push_back(std::make_unique<Rock>(world, count, vi, false, window.getSize()));
 				break;
 			case '&': // wood
-				// vi = sf::Vector2i(j , i);
 				vi = sf::Vector2i(j, rows - i);
 				m_objects.push_back(std::make_unique<Wood>(world, count, vi, false, window.getSize()));
 				break;
 			case'@': // Ice
-				// vi = sf::Vector2i(j , i);
 				vi = sf::Vector2i(j, rows - i);
 				m_objects.push_back(std::make_unique<Ice>(world, count, vi, false, window.getSize()));
 				break;
 			case'!': // Guards
-				// vi = sf::Vector2i(j, i);
 				vi = sf::Vector2i(j, rows - i);
 				m_objects.push_back(std::make_unique<Guards>(world, count, vi, true, window.getSize()));
 				break;

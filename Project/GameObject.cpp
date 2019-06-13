@@ -45,11 +45,18 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::print(const b2Vec2 position, float32 y)
+/* void GameObject::print(const b2Vec2 position, float32 y)
 {
 	
 	auto location = sf::Vector2f{ position.x , position.y } * SCALE;
 	m_sprite.setPosition(location);
 	m_sprite.setRotation(180 / b2_pi * y);
+} */
+
+void GameObject::print(sf::RenderWindow & window)
+{
+	m_sprite.setPosition(m_body->GetPosition().x *SCALE, m_body->GetPosition().y *SCALE);
+	m_sprite.setRotation(m_body->GetAngle() * 180 / b2_pi);
+	window.draw(m_sprite);
 }
 

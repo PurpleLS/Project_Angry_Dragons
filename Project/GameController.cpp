@@ -158,14 +158,20 @@ void GameController::eventhandler()
 					{
 						// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
 						m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
+						m_dragons[m_dragons.size() - 1]->moveDragon(mousePos);
 					}
 				}
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
 			sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			// sf::Vector2 d = (mousePos - ) * FIRE_SPEED;
-			// object.setVelocity(d.x, d.y);
+			if (m_dragons[m_dragons.size() - 1]->getActive())
+			{
+				// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
+				m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
+				m_dragons[m_dragons.size() - 1]->launchDragon();
+			}
+
 			break;
 
 		}
@@ -181,13 +187,19 @@ void GameController::print()
 	m_window.draw(m_groundSprite);
 	bodyIterator = bodyIterator->GetNext();
 
+	/*
 	for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
 	{
 		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
 		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
 		m_window.draw(go->getSprite());
 	}
-	
+	*/
+
+	for (int i = 0; i < m_dragons.size(); i++)
+		m_dragons[i]->print(m_window);
+
+	m_board.print(m_window);
 	/*
 	b2Body* bodyIterator = m_world->GetBodyList();
 	
@@ -233,7 +245,8 @@ void GameController::createGround(b2World & World, float X, float Y)
 	// m_groundSprite.setScale(1920 / m_groundSprite.getGlobalBounds().width, 100 / m_groundSprite.getGlobalBounds().height);
 
 	//create slingshot
-	/*b2Body* body2;
+	/*
+	b2Body* body2;
 	b2FixtureDef fixtureDef2;
 	b2BodyDef bodyDef2;
 	b2PolygonShape shape2;
@@ -244,7 +257,8 @@ void GameController::createGround(b2World & World, float X, float Y)
 	shape2.SetAsBox((50.f / 2) / SCALE, (100.f / 2) / SCALE);
 	fixtureDef2.density = 0.f;
 	fixtureDef2.shape = &shape2;
-	body2->CreateFixture(&fixtureDef2);*/
+	body2->CreateFixture(&fixtureDef2);
+	*/
 
 }
 
@@ -260,23 +274,5 @@ void GameController::checkActive()
 		}
 	}
 	if (!x)
-	{
-		b2Body* bodyIterator = m_world->GetBodyList();
-		m_dragons[m_dragons.size() - 1]->setActive();
-		bodyIterator = bodyIterator->GetNext();
-		for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
-		{
-			GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
-			if(go == m_dragons[m_dragons.size() - 1].get())
-			{
-				Dragons* Dgo = static_cast<Dragons*>(bodyIterator->GetUserData());
-				if (Dgo->getActive())
-				{
-					bodyIterator->SetTransform(b2Vec2{ (m_window.getSize().x / (6 * SCALE)), (m_window.getSize().y / (1.2f*SCALE)) }, 0);
-					bodyIterator->SetType(b2_staticBody);
-				}
-					
-			}
-		}
-	}
+		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
 }
