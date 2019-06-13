@@ -23,7 +23,6 @@ GameController::GameController(ifstream & file)
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
 	
-	
 	m_world->SetDebugDraw(&m_debugDrawInstance);
 	uint32 flags = 0;
 	flags += b2Draw::e_aabbBit;
