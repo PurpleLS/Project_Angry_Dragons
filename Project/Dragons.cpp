@@ -1,4 +1,5 @@
 #include "Dragons.h"
+#include <iostream>
 
 
 
@@ -16,14 +17,16 @@ void Dragons::setActive(float x, float y)
 void Dragons::launchDragon()
 {
 	m_body->SetType(b2_dynamicBody);
-	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_mousePositionEnd.x)* 5 / 10) , (float32)((m_mousePositionStart.y - m_mousePositionEnd.y) * 5 / 10)});
+	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_mousePositionEnd.x) * 25 / 100) , (float32)((m_mousePositionStart.y - m_mousePositionEnd.y) * 25 / 100)});
 	m_body->SetLinearVelocity(vec);
-	// m_active = false; // ????????????????
+	m_start = false;
 }
 
 void Dragons::moveDragon(sf::Vector2f position)
 {
+	std::cout << "sprite x:" << m_sprite.getPosition().x << " y:" << m_sprite.getPosition().x << std::endl;
 	m_body->SetTransform(b2Vec2{ (position.x)/ SCALE, (position.y) / SCALE }, 0);
+	std::cout << "mouse x:" << position.x << " y:" << position.y << std::endl;
 }
 
 Dragons::~Dragons()
