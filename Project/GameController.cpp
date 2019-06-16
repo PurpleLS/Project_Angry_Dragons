@@ -55,26 +55,6 @@ void GameController::readLevel(ifstream & file)
 	sf::Vector2i vi;
 
 	int j = 0;
-	/*
-	for (int i = 0; i < dragonsD; ++i)
-	{
-		vi = sf::Vector2i(-18  , j+1);
-		m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
-		++j;
-	}
-	for (int i = 0; i < dragonsV; ++i)
-	{
-		vi = sf::Vector2i(-18 , j+1);
-		m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
-		++j;
-	}
-	for (int i = 0; i < dragonsR; ++i)
-	{
-		vi = sf::Vector2i(-18, j+1);
-		m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
-		++j;
-	}
-	*/
 	while (dragonsD != 0 || dragonsV != 0 || dragonsR != 0)
 	{
 		int i = rand() % 3;
@@ -124,7 +104,7 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		m_world->DrawDebugData();
+		// m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
 	}
@@ -165,7 +145,7 @@ void GameController::eventhandler()
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
-			if (m_dragons[m_dragons.size() - 1]->getActive())
+			if (m_dragons[m_dragons.size() - 1]->getActive() && m_dragons[m_dragons.size() - 1]->getIfStart())
 			{
 				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
@@ -195,40 +175,10 @@ void GameController::print()
 	m_window.draw(m_groundSprite);
 	bodyIterator = bodyIterator->GetNext();
 
-	/*
-	for (;bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
-	{
-		GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
-		go->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
-		m_window.draw(go->getSprite());
-	}
-	*/
-
 	for (int i = 0; i < m_dragons.size(); i++)
 		m_dragons[i]->print(m_window);
 
 	m_board.print(m_window);
-	/*
-	b2Body* bodyIterator = m_world->GetBodyList();
-	
-	m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
-	m_groundSprite.setRotation(180 / b2_pi * bodyIterator->GetAngle());//updates rotation
-
-	m_window.draw(m_groundSprite);
-	// std::cout << bodyIterator->GetPosition().x  << " " << bodyIterator->GetPosition().y << endl;
-	GameObject* go = static_cast<GameObject*>(bodyIterator->GetUserData());
-
-	bodyIterator = bodyIterator->GetNext();
-	for (int i = 0; bodyIterator != 0; bodyIterator = bodyIterator->GetNext())
-	{
-		m_dragons[i]->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
-		m_window.draw(m_dragons[i]->getSprite());
-		i++;
-		if (i >= m_dragons.size())
-			break;
-	}
-	m_board.print(m_window, *m_world, bodyIterator);
-	*/
 }
 
 //creates ground
@@ -250,24 +200,6 @@ void GameController::createGround(b2World & World, float X, float Y)
 	m_groundSprite.setTexture(*Graphics::getInstance().getTexture(7));
 
 	m_groundSprite.setOrigin(960.f, 25.f); // ????????????
-	// m_groundSprite.setScale(1920 / m_groundSprite.getGlobalBounds().width, 100 / m_groundSprite.getGlobalBounds().height);
-
-	//create slingshot
-	/*
-	b2Body* body2;
-	b2FixtureDef fixtureDef2;
-	b2BodyDef bodyDef2;
-	b2PolygonShape shape2;
-
-	bodyDef2.position = b2Vec2((m_window.getSize().x / (6 * SCALE)), (m_window.getSize().y / (1.2f*SCALE)));
-	bodyDef2.type = b2_staticBody;
-	body2 = World.CreateBody(&bodyDef2);
-	shape2.SetAsBox((50.f / 2) / SCALE, (100.f / 2) / SCALE);
-	fixtureDef2.density = 0.f;
-	fixtureDef2.shape = &shape2;
-	body2->CreateFixture(&fixtureDef2);
-	*/
-
 }
 
 void GameController::checkActive()
