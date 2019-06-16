@@ -27,7 +27,7 @@ void Menu::openingScreen(sf::RenderWindow & window)
 
 
 	playButton.setFillColor(sf::Color::Transparent);
-	playButton.setPosition({(float)(window.getSize().x /2) - 100, (float)(window.getSize().y / 2)  + 200});
+	playButton.setPosition({(float)(window.getSize().x /2) - 150, (float)(window.getSize().y / 2)  + 200});
 	playButton.setSize({ 350, 200 });
 
 	playText.setPosition(playButton.getPosition());
