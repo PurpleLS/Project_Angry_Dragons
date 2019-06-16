@@ -14,6 +14,7 @@ public:
 	void setMousePositionEnd(sf::Vector2f position) { m_mousePositionEnd = position; }
 	sf::Vector2f getMousePositionStart() { return m_mousePositionStart; }
 	sf::Vector2f getMousePositionEnd() { return m_mousePositionEnd; }
+	bool checkMovement();
 	void launchDragon();
 	void moveDragon(sf::Vector2f position);
 	~Dragons();
@@ -23,5 +24,6 @@ protected:
 	bool m_start = false;
 	sf::Vector2f m_mousePositionStart;
 	sf::Vector2f m_mousePositionEnd;
+	sf::Clock m_clock;
 };
 

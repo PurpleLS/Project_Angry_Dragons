@@ -17,6 +17,8 @@ Graphics::Graphics()
 	if (!m_pictures[9].loadFromFile("Pictures/backgroundStart_icon.jpeg")) { std::cerr << "error in loading picture 9\n"; };
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };
+
+	if (!m_music.openFromFile("Audio/Opening.wav")) { std::cerr << "error in loading sound\n"; };
 }
 
 const sf::Texture * Graphics::getTexture(int index) const

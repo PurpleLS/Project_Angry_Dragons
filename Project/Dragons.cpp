@@ -14,6 +14,16 @@ void Dragons::setActive(float x, float y)
 	m_active = true;
 }
 
+bool Dragons::checkMovement()
+{
+	float speedNow = m_body->GetLinearVelocity().Length();
+	if (speedNow <= 0.02)
+		if (m_clock.getElapsedTime().asSeconds() > 3.f)
+			return false;
+	return true;
+		
+}
+
 void Dragons::launchDragon()
 {
 	m_body->SetType(b2_dynamicBody);

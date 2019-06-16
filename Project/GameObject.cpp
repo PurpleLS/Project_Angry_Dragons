@@ -11,6 +11,7 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 	b2FixtureDef fixtureDef;
 	b2BodyDef bodyDef;
 	b2CircleShape circleShape;
+	b2PolygonShape octagonShape;
 	b2PolygonShape boxShape;
 	m_width = width;
 	bodyDef.userData = this;
@@ -21,8 +22,21 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 
 	if (circle)
 	{
-		circleShape.m_radius = (50.f / 2) / SCALE;
-		circleShape.m_p.Set((50.f*width) / (2 * SCALE), (50.f) / (2 * SCALE));
+		/*circleShape.m_radius = (50.f / 2) / SCALE;
+		circleShape.m_p.Set((50.f*width) / (2 * SCALE), (50.f) / (2 * SCALE));*/
+
+		b2Vec2 vertices[16];
+		vertices[0].Set(1.6 / 2, 0);
+		vertices[1].Set(1.6*0.85, 1.6*0.15);
+		vertices[2].Set(1.6, 1.6 / 2);
+		vertices[3].Set(1.6*0.85, 1.6*0.85);
+		vertices[4].Set(1.6 / 2, 1.6);
+		vertices[5].Set(1.6*0.15, 1.6*0.85);
+		vertices[6].Set(0, 1.6 / 2);
+		vertices[7].Set(1.6*0.15, 1.6*0.15);
+
+		int32 count = 8;
+		octagonShape.Set(vertices, count);
 	}	
 	else
 		boxShape.SetAsBox(((50.f / 2)*(width)) / SCALE, (50.f / 2) / SCALE,
@@ -33,7 +47,7 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 	fixtureDef.friction = 0.7f;
 
 	if (circle)
-		fixtureDef.shape = &circleShape;
+		fixtureDef.shape = &octagonShape; /*circleShape*/
 	else
 		fixtureDef.shape = &boxShape;
 

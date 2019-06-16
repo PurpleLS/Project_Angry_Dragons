@@ -13,6 +13,8 @@ Menu::~Menu()
 
 void Menu::openingScreen(sf::RenderWindow & window)
 {
+	//Graphics::getInstance().playMusic();
+	Graphics::getInstance().getMusic()->play();
 	sf::RectangleShape playButton;
 	sf::Text playText;
 	sf::Vector2f mousePosition;
@@ -64,5 +66,7 @@ void Menu::openingScreen(sf::RenderWindow & window)
 			break;
 		}
 	}
+	Graphics::getInstance().getMusic()->stop();
+	// Graphics::getInstance().stopMusic();
 // background.setTexture(graphics.getTexture(12));
 }
