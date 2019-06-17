@@ -21,7 +21,8 @@ private:
 	Graphics();
 	Graphics(const Graphics & x) = delete;
 	Graphics operator=(const Graphics & x) = delete;
-	static Graphics* instance;
+	//static Graphics* m_instance;
+
 	std::vector <sf::Texture> m_pictures;
 	sf::Font m_font;
 	sf::Music m_music;
