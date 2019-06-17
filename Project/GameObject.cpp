@@ -66,6 +66,8 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 
 	m_body->CreateFixture(&fixtureDef);
 
+	m_rect = sf::IntRect(0, 0, 188, 130);
+	m_sprite.setTextureRect(m_rect);
 }
 
 GameObject::~GameObject()
@@ -82,8 +84,23 @@ GameObject::~GameObject()
 
 void GameObject::print(sf::RenderWindow & window)
 {
+	Dragons* x = dynamic_cast<Dragons*>(this);
+	if (x)
+	{
+		if (m_spriteClock.getElapsedTime().asSeconds() > 0.3f)
+		{
+			if (m_rect.left == 376)
+				m_rect.left = 0;
+			else
+				m_rect.left += 188;
+			m_sprite.setTextureRect(m_rect);
+			m_spriteClock.restart();
+
+		}
+	}
 	m_sprite.setPosition(m_body->GetPosition().x *SCALE, m_body->GetPosition().y *SCALE);
 	m_sprite.setRotation(m_body->GetAngle() * 180 / b2_pi);
 	window.draw(m_sprite);
+
 }
 

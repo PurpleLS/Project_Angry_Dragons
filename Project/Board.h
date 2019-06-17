@@ -16,8 +16,9 @@ public:
 	void print(sf::RenderWindow & window);
 	void readBoard(ifstream &file, b2World & world, sf::RenderWindow & window);
 	void deleteTheDead();
+	int getGuards();
 private:
 	std::vector<std::unique_ptr<NonMoveable>> m_objects;
-	
+	int m_guards=0;
 };
 

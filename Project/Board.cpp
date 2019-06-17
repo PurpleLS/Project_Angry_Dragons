@@ -79,6 +79,7 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 			case'!': // Guards
 				vi = sf::Vector2i(j, rows - i);
 				m_objects.push_back(std::make_unique<Guards>(world, count, vi, true, window.getSize()));
+				m_guards++;
 				break;
 			}
 			j += (count - 1);
@@ -92,7 +93,15 @@ void Board::deleteTheDead()
 	for (int i = 0; i < m_objects.size(); ++i)
 		if (m_objects[i]->getIfDead())
 		{
+			Guards* x = dynamic_cast<Guards*>(m_objects[i].get());
+			if (x)
+				m_guards--;
 			m_objects[i]->getBody()->GetWorld()->DestroyBody(m_objects[i]->getBody());
 			m_objects.erase(m_objects.begin() + i);
 		}
+}
+
+int Board::getGuards()
+{
+	return m_guards;
 }

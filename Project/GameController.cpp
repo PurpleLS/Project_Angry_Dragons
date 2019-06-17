@@ -103,11 +103,12 @@ void GameController::run()
 	while (m_window.isOpen())
 	{
 		checkActive();
+		checkEndLevel();
 		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		// m_world->DrawDebugData();
+		m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
 	}
@@ -224,5 +225,17 @@ void GameController::checkActive()
 	}
 	else if(!x && m_dragons.size() > 0)
 		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
+}
+
+void GameController::checkEndLevel()
+{
+	if (m_board.getGuards() == 0)
+	{
+		// next level
+	}
+	if (m_dragons.size() == 0)
+	{
+		// try again
+	}
 }
 

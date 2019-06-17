@@ -46,5 +46,7 @@ protected:
 	int m_width;
 	int m_type = 0;
 	bool m_dead = false;
+	sf::IntRect m_rect;
+	sf::Clock m_spriteClock;
 };
 

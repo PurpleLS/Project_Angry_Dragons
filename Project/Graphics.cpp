@@ -9,9 +9,9 @@ Graphics::Graphics()
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.jpg")   ) { std::cerr << "error in loading picture 1\n";};
 	if (!m_pictures[2].loadFromFile("Pictures/ice_icon.jpg")    ) { std::cerr << "error in loading picture 2\n";};
 	if (!m_pictures[3].loadFromFile("Pictures/guards_icon.png") ) { std::cerr << "error in loading picture 3\n";};
-	if (!m_pictures[4].loadFromFile("Pictures/dragon1_icon.png")) { std::cerr << "error in loading picture 4\n";};
-	if (!m_pictures[5].loadFromFile("Pictures/dragon2_icon.png")) { std::cerr << "error in loading picture 5\n";}; // rhaegal
-	if (!m_pictures[6].loadFromFile("Pictures/dragon3_icon.png")) { std::cerr << "error in loading picture 6\n";}; // viserion
+	if (!m_pictures[4].loadFromFile("Pictures/dragon1_icon1.jpg")) { std::cerr << "error in loading picture 4\n";};
+	if (!m_pictures[5].loadFromFile("Pictures/dragon2_icon2.jpg")) { std::cerr << "error in loading picture 5\n";}; // rhaegal
+	if (!m_pictures[6].loadFromFile("Pictures/dragon3_icon3.jpg")) { std::cerr << "error in loading picture 6\n";}; // viserion
 	if (!m_pictures[7].loadFromFile("Pictures/ground_icon.png") ) { std::cerr << "error in loading picture 7\n";}; // ground
 	if (!m_pictures[8].loadFromFile("Pictures/background_icon.png")) { std::cerr << "error in loading picture 8\n"; };
 	if (!m_pictures[9].loadFromFile("Pictures/backgroundStart_icon.jpeg")) { std::cerr << "error in loading picture 9\n"; };

@@ -31,6 +31,7 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 	void checkActive();
+	void checkEndLevel();
 	// void checkcollision();
 private:
 	b2GLDraw m_debugDrawInstance;
