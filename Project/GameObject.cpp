@@ -66,9 +66,13 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 
 	m_body->CreateFixture(&fixtureDef);
 
+
 	int i = rand() % 3;
 	m_rect = sf::IntRect(188 * i, 0, 188, 130);
 	m_sprite.setTextureRect(m_rect);
+	
+
+
 }
 
 GameObject::~GameObject()
@@ -99,6 +103,29 @@ void GameObject::print(sf::RenderWindow & window)
 
 		}
 	}
+
+	//Guards* y = dynamic_cast<Guards*>(this);
+	//if (y)
+	//{
+	//	static bool once = false;
+	//	if (!once) 
+	//	{
+	//		m_rect = sf::IntRect(0, 0, 100, 172);
+	//		m_sprite.setTextureRect(m_rect);
+	//		once = true;
+	//	}
+
+	//	if (m_spriteClock.getElapsedTime().asSeconds() > 0.3f)
+	//	{
+	//		if (m_rect.left == 200)
+	//			m_rect.left = 0;
+	//		else
+	//			m_rect.left += 100;
+	//		m_sprite.setTextureRect(m_rect);
+	//		m_spriteClock.restart();
+
+	//	}
+	//}
 	m_sprite.setPosition(m_body->GetPosition().x *SCALE, m_body->GetPosition().y *SCALE);
 	m_sprite.setRotation(m_body->GetAngle() * 180 / b2_pi);
 	window.draw(m_sprite);
