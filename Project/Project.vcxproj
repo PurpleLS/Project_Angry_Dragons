@@ -160,7 +160,6 @@
     <ClInclude Include="Rhaegal.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Guards.h" />
-    <ClInclude Include="Moveable.h" />
     <ClInclude Include="NonMoveable.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Viserion.h" />
@@ -182,12 +181,14 @@
     <ClCompile Include="Rhaegal.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Guards.cpp" />
-    <ClCompile Include="Moveable.cpp" />
     <ClCompile Include="NonMoveable.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Viserion.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Wood.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

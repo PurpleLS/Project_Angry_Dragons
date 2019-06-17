@@ -18,6 +18,35 @@ Guards::~Guards()
 {
 }
 
-void Guards::coillision()
+
+void Guards::collision(GameObject & object)
+{
+}
+
+void Guards::collision(Drogon & object)
+{
+}
+
+void Guards::collision(Viserion & object)
+{
+}
+
+void Guards::collision(Rhaegal & object)
+{
+}
+
+void Guards::collision(Rock & object)
+{
+}
+
+void Guards::collision(Ice & object)
+{
+}
+
+void Guards::collision(Wood & object)
+{
+}
+
+void Guards::collision(Guards & object)
 {
 }

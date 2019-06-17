@@ -17,3 +17,35 @@ Viserion::Viserion(b2World & world, int width, sf::Vector2i position, bool circl
 Viserion::~Viserion()
 {
 }
+
+void Viserion::collision(GameObject & object)
+{
+}
+
+void Viserion::collision(Drogon & object)
+{
+}
+
+void Viserion::collision(Viserion & object)
+{
+}
+
+void Viserion::collision(Rhaegal & object)
+{
+}
+
+void Viserion::collision(Rock & object)
+{
+}
+
+void Viserion::collision(Ice & object)
+{
+}
+
+void Viserion::collision(Wood & object)
+{
+}
+
+void Viserion::collision(Guards & object)
+{
+}

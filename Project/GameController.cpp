@@ -60,21 +60,21 @@ void GameController::readLevel(ifstream & file)
 		int i = rand() % 3;
 		if (i == 0 && dragonsD != 0)
 		{
-			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) -1);
+			vi = sf::Vector2i(-14 + j, (m_window.getSize().y / 50) -1);
 			m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsD--;
 			++j;
 		}
 		else if(i == 1 && dragonsV != 0)
 		{
-			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) - 1);
+			vi = sf::Vector2i(-14 + j, (m_window.getSize().y / 50) - 1);
 			m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsV--;
 			++j;
 		}
 		else if(i == 2 && dragonsR != 0)
 		{
-			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) - 1);
+			vi = sf::Vector2i(-14 + j, (m_window.getSize().y / 50) - 1);
 			m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsR--;
 			++j;
@@ -205,15 +205,18 @@ void GameController::createGround(b2World & World, float X, float Y)
 void GameController::checkActive()
 {
 	bool x = false;
-	for (int i = 0; i < m_dragons.size(); i++)
+	/* for (int i = 0; i < m_dragons.size(); i++)
 	{
-		if (m_dragons[i]->getActive())
+	*/
+	if (m_dragons[m_dragons.size()-1]->getActive())
+	{
+		if (!m_dragons[m_dragons.size() - 1]->checkMovement())
 		{
-			
-			x = true;
-			break;
+			m_dragons.pop_back();
 		}
+		else
+			x = true;
 	}
-	if (!x)
+	else if(!x && m_dragons.size() > 0)
 		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
 }

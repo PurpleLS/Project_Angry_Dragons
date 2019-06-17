@@ -18,9 +18,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Moveable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NonMoveable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -80,9 +77,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Moveable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NonMoveable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -137,5 +131,8 @@
     <ClCompile Include="b2GLDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

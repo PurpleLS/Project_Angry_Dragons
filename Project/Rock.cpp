@@ -7,6 +7,35 @@ Rock::Rock(b2World & world, int width, sf::Vector2i position, bool circle, sf::V
 	m_sprite.setScale((50.f* width) / m_sprite.getGlobalBounds().width, 50.f / m_sprite.getGlobalBounds().height); // set correct scale
 }
 
-void Rock::coillision()
+
+void Rock::collision(GameObject & object)
+{
+}
+
+void Rock::collision(Drogon & object)
+{
+}
+
+void Rock::collision(Viserion & object)
+{
+}
+
+void Rock::collision(Rhaegal & object)
+{
+}
+
+void Rock::collision(Rock & object)
+{
+}
+
+void Rock::collision(Ice & object)
+{
+}
+
+void Rock::collision(Wood & object)
+{
+}
+
+void Rock::collision(Guards & object)
 {
 }

@@ -1,6 +1,16 @@
 #include "GameObject.h"
 
 
+#include "Dragons.h"
+#include "Viserion.h" 
+#include "Rhaegal.h" 
+#include "NonMoveable.h" 
+#include "Wall.h" 
+#include "Wood.h"
+#include "Ice.h"
+#include "Rock.h"
+#include "Guards.h"
+
 GameObject::GameObject()
 {
 

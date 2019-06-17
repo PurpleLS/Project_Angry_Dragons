@@ -17,3 +17,35 @@ Rhaegal::Rhaegal(b2World & world, int width, sf::Vector2i position, bool circle,
 Rhaegal::~Rhaegal()
 {
 }
+
+void Rhaegal::collision(GameObject & object)
+{
+}
+
+void Rhaegal::collision(Drogon & object)
+{
+}
+
+void Rhaegal::collision(Viserion & object)
+{
+}
+
+void Rhaegal::collision(Rhaegal & object)
+{
+}
+
+void Rhaegal::collision(Rock & object)
+{
+}
+
+void Rhaegal::collision(Ice & object)
+{
+}
+
+void Rhaegal::collision(Wood & object)
+{
+}
+
+void Rhaegal::collision(Guards & object)
+{
+}

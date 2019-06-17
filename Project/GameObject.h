@@ -3,7 +3,16 @@
 #include <Box2D/Box2D.h>
 #include "Graphics.h"
 
-
+class Dragons;
+class Drogon;
+class Viserion;
+class Rhaegal;
+class NonMoveable;
+class Wall;
+class Wood;
+class Ice;
+class Rock;
+class Guards;
 
 const float SCALE = 30.f;
 
@@ -17,6 +26,18 @@ public:
 	void print(sf::RenderWindow & window);
 	sf::Sprite getSprite() const { return m_sprite; }
 	int getType() { return m_type; }
+
+	virtual void collision(GameObject& object) = 0;
+	virtual void collision(Drogon & object) = 0;
+	virtual void collision(Viserion& object) = 0;
+	virtual void collision(Rhaegal & object) = 0;
+
+	virtual void collision(Rock & object) = 0;
+	virtual void collision(Ice & object) = 0;
+	virtual void collision(Wood & object) = 0;
+
+	virtual void collision(Guards & object) = 0;
+
 protected:
 	b2Body * m_body;
 	sf::Sprite m_sprite;

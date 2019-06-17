@@ -29,7 +29,7 @@ int main()
 {
 	srand((unsigned)time(0));
 	// Open file
-
+	
 	ifstream file("AngryD.txt");
 	if (!file.is_open())
 	{

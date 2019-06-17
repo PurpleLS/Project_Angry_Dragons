@@ -1,8 +1,6 @@
 #include "Dragons.h"
 #include <iostream>
 
-
-
 Dragons::Dragons()
 {
 }
@@ -17,9 +15,16 @@ void Dragons::setActive(float x, float y)
 bool Dragons::checkMovement()
 {
 	float speedNow = m_body->GetLinearVelocity().Length();
-	if (speedNow <= 0.02)
+	if (speedNow <= 0.02 && m_body->GetType() == b2_dynamicBody)
+	{
 		if (m_clock.getElapsedTime().asSeconds() > 3.f)
+		{
+			m_body->GetWorld()->DestroyBody(m_body);
 			return false;
+		}
+	}
+	else
+		m_clock.restart();
 	return true;
 		
 }
@@ -46,3 +51,37 @@ Dragons::~Dragons()
 void Dragons::move()
 {
 }
+
+void Dragons::collision(GameObject & object)
+{
+}
+
+void Dragons::collision(Drogon & object)
+{
+}
+
+void Dragons::collision(Viserion & object)
+{
+}
+
+void Dragons::collision(Rhaegal & object)
+{
+}
+
+void Dragons::collision(Rock & object)
+{
+}
+
+void Dragons::collision(Ice & object)
+{
+}
+
+void Dragons::collision(Wood & object)
+{
+}
+
+void Dragons::collision(Guards & object)
+{
+}
+
+

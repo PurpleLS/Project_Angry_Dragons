@@ -1,12 +1,13 @@
 #pragma once
-#include "Moveable.h"
+#include "GameObject.h"
+
 class Dragons :
-	public Moveable
+	public GameObject
 {
 public:
 	Dragons();
 	Dragons(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
-		: Moveable(world, width, position, circle, windowSize) { m_type = 1;  m_active = false; m_body->SetType(b2_staticBody);}
+		: GameObject(world, width, position, circle, windowSize) { m_type = 1;  m_active = false; m_body->SetType(b2_staticBody);}
 	bool getActive() { return m_active; }
 	bool getIfStart() { return m_start; }
 	void setActive(float x, float y);
@@ -19,11 +20,23 @@ public:
 	void moveDragon(sf::Vector2f position);
 	~Dragons();
 	virtual void move();
+
+	// Inherited via GameObject
+	virtual void collision(GameObject & object) override;
+	virtual void collision(Drogon & object) override;
+	virtual void collision(Viserion & object) override;
+	virtual void collision(Rhaegal & object) override;
+	virtual void collision(Rock & object) override;
+	virtual void collision(Ice & object) override;
+	virtual void collision(Wood & object) override;
+	virtual void collision(Guards & object) override;
+
 protected:
 	bool m_active;
 	bool m_start = false;
 	sf::Vector2f m_mousePositionStart;
 	sf::Vector2f m_mousePositionEnd;
 	sf::Clock m_clock;
+
 };
 
