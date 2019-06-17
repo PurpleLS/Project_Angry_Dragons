@@ -15,6 +15,7 @@ public:
 	// void print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterator);
 	void print(sf::RenderWindow & window);
 	void readBoard(ifstream &file, b2World & world, sf::RenderWindow & window);
+	void deleteTheDead();
 private:
 	std::vector<std::unique_ptr<NonMoveable>> m_objects;
 	

@@ -20,5 +20,7 @@ public:
 	virtual void collision(Wood & object) override;
 	virtual void collision(Guards & object) override;
 
+protected:
+	float m_life = 3;
 };
 

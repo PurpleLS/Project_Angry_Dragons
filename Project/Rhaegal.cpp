@@ -1,5 +1,10 @@
+#include "Viserion.h"
 #include "Rhaegal.h"
-
+#include "Drogon.h"
+#include "Rock.h"
+#include "Wood.h"
+#include "Guards.h"
+#include "Ice.h"
 
 
 Rhaegal::Rhaegal()
@@ -20,32 +25,40 @@ Rhaegal::~Rhaegal()
 
 void Rhaegal::collision(GameObject & object)
 {
+	object.collision(*this);
 }
 
 void Rhaegal::collision(Drogon & object)
 {
+	//-----------
 }
 
 void Rhaegal::collision(Viserion & object)
 {
+	//---------------
 }
 
 void Rhaegal::collision(Rhaegal & object)
 {
+	//----------------
 }
 
 void Rhaegal::collision(Rock & object)
 {
+	object.collision(*this);
 }
 
 void Rhaegal::collision(Ice & object)
 {
+	object.collision(*this);
 }
 
 void Rhaegal::collision(Wood & object)
 {
+	object.collision(*this);
 }
 
 void Rhaegal::collision(Guards & object)
 {
+	object.collision(*this);
 }

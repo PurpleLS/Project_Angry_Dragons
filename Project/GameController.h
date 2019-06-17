@@ -10,6 +10,7 @@
 #include <vector>
 #include "Box2D/Box2D.h"
 #include "b2GLDraw.h"
+#include "MyContactListener.h"
 
 using std::ifstream;
 using std::cout;
@@ -30,7 +31,7 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 	void checkActive();
-	void checkcollision();
+	// void checkcollision();
 private:
 	b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
@@ -39,4 +40,5 @@ private:
 	Menu m_menu;
 	vector<std::unique_ptr<Dragons>> m_dragons;
 	sf::Sprite m_groundSprite;
+	MyContactListener myContactListenerInstance;
 };

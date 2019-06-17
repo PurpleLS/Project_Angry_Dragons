@@ -68,7 +68,7 @@ void Menu::openingScreen(sf::RenderWindow & window)
 			}
 		}
 	}
-	Graphics::getInstance().getMusic()->stop();
+	Graphics::getInstance().getMusic()->setVolume(20);
 	// Graphics::getInstance().stopMusic();
 // background.setTexture(graphics.getTexture(12));
 }

@@ -23,6 +23,9 @@ GameController::GameController(ifstream & file)
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
 	
+	//in FooTest constructor
+	m_world->SetContactListener(&myContactListenerInstance);
+
 	m_world->SetDebugDraw(&m_debugDrawInstance);
 	uint32 flags = 0;
 	flags += b2Draw::e_aabbBit;
@@ -86,7 +89,7 @@ void GameController::readLevel(ifstream & file)
 void GameController::run()
 {
 	Menu menu;
-	//menu.openingScreen(m_window);
+	menu.openingScreen(m_window);
 
 	b2Body* BodyIterator = m_world->GetBodyList();	
 	sf::RectangleShape m_back;
@@ -104,7 +107,7 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		m_world->DrawDebugData();
+		// m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
 	}
@@ -135,7 +138,7 @@ void GameController::eventhandler()
 					sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (m_dragons[m_dragons.size() - 1]->getSprite().getGlobalBounds().contains(mousePos))
 					{
-						if (!m_dragons[m_dragons.size() - 1]->getIfUsed())
+						if (!m_dragons[m_dragons.size() - 1]->getIfDead()) // getIfUsed()
 						{// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
 							m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
 							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
@@ -223,7 +226,3 @@ void GameController::checkActive()
 		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
 }
 
-void GameController::checkcollision()
-{
-
-}

@@ -31,6 +31,7 @@ Board::~Board()
 
 void Board::print(sf::RenderWindow & window)
 {
+	deleteTheDead();
 	for (int i = 0; i < m_objects.size(); i++)
 		m_objects[i]->print(window);
 }
@@ -84,4 +85,14 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 		}
 		c = file.get(); // Get the end of line
 	}
+}
+
+void Board::deleteTheDead()
+{
+	for (int i = 0; i < m_objects.size(); ++i)
+		if (m_objects[i]->getIfDead())
+		{
+			m_objects[i]->getBody()->GetWorld()->DestroyBody(m_objects[i]->getBody());
+			m_objects.erase(m_objects.begin() + i);
+		}
 }

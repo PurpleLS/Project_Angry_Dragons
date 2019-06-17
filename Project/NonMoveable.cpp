@@ -14,6 +14,7 @@ NonMoveable::~NonMoveable()
 
 void NonMoveable::collision(GameObject & object)
 {
+	object.collision(*this);
 }
 
 void NonMoveable::collision(Drogon & object)

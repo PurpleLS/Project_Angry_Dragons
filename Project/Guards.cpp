@@ -1,4 +1,7 @@
 #include "Guards.h"
+#include "Rock.h"
+#include "Ice.h"
+#include "Wood.h"
 
 
 
@@ -18,35 +21,71 @@ Guards::~Guards()
 {
 }
 
+bool Guards::checkAbove(float gY, float wY)
+{
+	if (gY >= wY)
+		return false;
+	return true;
+}
+
 
 void Guards::collision(GameObject & object)
 {
+	object.collision(*this);
 }
 
 void Guards::collision(Drogon & object)
 {
+	m_life -= 2;
+	if (m_life <= 0)
+		m_dead = true;
 }
 
 void Guards::collision(Viserion & object)
 {
+	m_life -= 2;
+	if (m_life <= 0)
+		m_dead = true;
 }
 
 void Guards::collision(Rhaegal & object)
 {
+	m_life -= 2;
+	if (m_life <= 0)
+		m_dead = true;
 }
 
 void Guards::collision(Rock & object)
 {
+	if (checkAbove(m_body->GetPosition().y, object.getBody()->GetPosition().y))
+	{
+		m_life -= 1;
+		if (m_life <= 0)
+			m_dead = true;
+	}
 }
 
 void Guards::collision(Ice & object)
 {
+	if (checkAbove(m_body->GetPosition().y, object.getBody()->GetPosition().y))
+	{
+		m_life -= 1;
+		if (m_life <= 0)
+			m_dead = true;
+	}
 }
 
 void Guards::collision(Wood & object)
 {
+	if (checkAbove(m_body->GetPosition().y, object.getBody()->GetPosition().y))
+	{
+		m_life -= 1;
+		if (m_life <= 0)
+			m_dead = true;
+	}
 }
 
 void Guards::collision(Guards & object)
 {
+	//
 }

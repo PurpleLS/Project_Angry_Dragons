@@ -1,4 +1,10 @@
 #include "Viserion.h"
+#include "Rhaegal.h"
+#include "Drogon.h"
+#include "Rock.h"
+#include "Wood.h"
+#include "Guards.h"
+#include "Ice.h"
 
 
 
@@ -20,32 +26,40 @@ Viserion::~Viserion()
 
 void Viserion::collision(GameObject & object)
 {
+	object.collision(*this);
 }
 
 void Viserion::collision(Drogon & object)
 {
+	//--------------
 }
 
 void Viserion::collision(Viserion & object)
 {
+	//----------------
 }
 
 void Viserion::collision(Rhaegal & object)
 {
+	//------------------
 }
 
 void Viserion::collision(Rock & object)
 {
+	object.collision(*this);
 }
 
 void Viserion::collision(Ice & object)
 {
+	object.collision(*this);
 }
 
 void Viserion::collision(Wood & object)
 {
+	object.collision(*this);
 }
 
 void Viserion::collision(Guards & object)
 {
+	object.collision(*this);
 }

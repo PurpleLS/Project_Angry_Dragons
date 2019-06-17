@@ -156,6 +156,7 @@
     <ClInclude Include="Ice.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MyContactListener.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rhaegal.h" />
     <ClInclude Include="GameObject.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MyContactListener.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rhaegal.cpp" />
     <ClCompile Include="GameObject.cpp" />

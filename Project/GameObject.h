@@ -25,7 +25,9 @@ public:
 	// void print(const b2Vec2 position, float32 y);
 	void print(sf::RenderWindow & window);
 	sf::Sprite getSprite() const { return m_sprite; }
+	bool getIfDead() { return m_dead; }
 	int getType() { return m_type; }
+	b2Body* getBody() { return m_body; }
 
 	virtual void collision(GameObject& object) = 0;
 	virtual void collision(Drogon & object) = 0;
@@ -43,5 +45,6 @@ protected:
 	sf::Sprite m_sprite;
 	int m_width;
 	int m_type = 0;
+	bool m_dead = false;
 };
 

@@ -11,6 +11,7 @@ Wall::~Wall()
 
 void Wall::collision(GameObject & object)
 {
+	object.collision(*this);
 }
 
 void Wall::collision(Drogon & object)
