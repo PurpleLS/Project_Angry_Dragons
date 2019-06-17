@@ -10,6 +10,7 @@ public:
 		: GameObject(world, width, position, circle, windowSize) { m_type = 1;  m_active = false; m_body->SetType(b2_staticBody);}
 	bool getActive() { return m_active; }
 	bool getIfStart() { return m_start; }
+	bool getIfUsed() { return m_used; }
 	void setActive(float x, float y);
 	void setMousePositionStart(sf::Vector2f position) { if (!m_start) { m_mousePositionStart = position; m_start = true; } }
 	void setMousePositionEnd(sf::Vector2f position) { m_mousePositionEnd = position; }
@@ -34,6 +35,7 @@ public:
 protected:
 	bool m_active;
 	bool m_start = false;
+	bool m_used = false;
 	sf::Vector2f m_mousePositionStart;
 	sf::Vector2f m_mousePositionEnd;
 	sf::Clock m_clock;

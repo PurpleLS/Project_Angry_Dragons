@@ -35,6 +35,7 @@ void Dragons::launchDragon()
 	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_mousePositionEnd.x) * 25 / 100) , (float32)((m_mousePositionStart.y - m_mousePositionEnd.y) * 25 / 100)});
 	m_body->SetLinearVelocity(vec);
 	m_start = false;
+	m_used = true;
 }
 
 void Dragons::moveDragon(sf::Vector2f position)

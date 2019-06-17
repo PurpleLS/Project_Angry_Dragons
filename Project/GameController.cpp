@@ -135,11 +135,13 @@ void GameController::eventhandler()
 					sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (m_dragons[m_dragons.size() - 1]->getSprite().getGlobalBounds().contains(mousePos))
 					{
-						// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
-						m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
-						float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
-						float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
-						m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY});
+						if (!m_dragons[m_dragons.size() - 1]->getIfUsed())
+						{// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
+							m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
+							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
+							float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
+							m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY });
+						}
 					}
 				}
 			}
@@ -219,4 +221,9 @@ void GameController::checkActive()
 	}
 	else if(!x && m_dragons.size() > 0)
 		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
+}
+
+void GameController::checkcollision()
+{
+
 }

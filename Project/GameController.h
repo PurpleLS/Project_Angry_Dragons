@@ -30,6 +30,7 @@ public:
 	void print();
 	void createGround(b2World& World, float X, float Y);
 	void checkActive();
+	void checkcollision();
 private:
 	b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
