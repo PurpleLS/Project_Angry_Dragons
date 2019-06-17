@@ -62,8 +62,10 @@ void Menu::openingScreen(sf::RenderWindow & window)
 		if (event.type == sf::Event::KeyReleased)
 		{
 			if (event.key.code == sf::Keyboard::Escape)
+			{
 				window.close();
-			break;
+				break;
+			}
 		}
 	}
 	Graphics::getInstance().getMusic()->stop();

@@ -60,21 +60,21 @@ void GameController::readLevel(ifstream & file)
 		int i = rand() % 3;
 		if (i == 0 && dragonsD != 0)
 		{
-			vi = sf::Vector2i(-18, j + 1);
+			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) -1);
 			m_dragons.push_back(std::make_unique<Drogon>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsD--;
 			++j;
 		}
 		else if(i == 1 && dragonsV != 0)
 		{
-			vi = sf::Vector2i(-18, j + 1);
+			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) - 1);
 			m_dragons.push_back(std::make_unique<Viserion>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsV--;
 			++j;
 		}
 		else if(i == 2 && dragonsR != 0)
 		{
-			vi = sf::Vector2i(-18, j + 1);
+			vi = sf::Vector2i(-22 + j, (m_window.getSize().y / 50) - 1);
 			m_dragons.push_back(std::make_unique<Rhaegal>(*m_world, 1, vi, true, m_window.getSize()));
 			dragonsR--;
 			++j;
@@ -86,7 +86,7 @@ void GameController::readLevel(ifstream & file)
 void GameController::run()
 {
 	Menu menu;
-	menu.openingScreen(m_window);
+	//menu.openingScreen(m_window);
 
 	b2Body* BodyIterator = m_world->GetBodyList();	
 	sf::RectangleShape m_back;
