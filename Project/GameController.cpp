@@ -125,7 +125,7 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		m_world->DrawDebugData(); // Debug draw - we can erase
+		// m_world->DrawDebugData(); // Debug draw - we can erase
 		m_window.display();
 		eventhandler();
 	}

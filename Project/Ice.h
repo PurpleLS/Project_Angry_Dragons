@@ -6,6 +6,7 @@ class Ice :
 {
 public:
 	Ice(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize);
+	virtual void updateSprite();
 
 	// Inherited via Wall
 	virtual void collision(GameObject & object) override;

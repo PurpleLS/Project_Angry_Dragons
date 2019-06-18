@@ -9,6 +9,8 @@ public:
 	NonMoveable(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
 		: GameObject(world, width,position, circle, windowSize){}
 	~NonMoveable();
+	void updateLife(int i);
+	virtual void updateSprite() = 0;
 
 	// Inherited via GameObject
 	virtual void collision(GameObject & object) override;

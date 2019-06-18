@@ -17,6 +17,9 @@ void MyContactListener::BeginContact(b2Contact* contact)
 
 	GameObject* bodyUserData2 = static_cast<GameObject*> (contact->GetFixtureB()->GetBody()->GetUserData());
 
-	if(bodyUserData1 != nullptr && bodyUserData2 != nullptr)
+	if (bodyUserData1 != nullptr && bodyUserData2 != nullptr)
+	{
 		bodyUserData1->collision(*bodyUserData2);
+
+	}
 }

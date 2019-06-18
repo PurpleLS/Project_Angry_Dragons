@@ -8,6 +8,7 @@ public:
 	Wall();
 	Wall(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
 		: NonMoveable(world, width, position, circle, windowSize) {}
+	virtual void updateSprite() = 0;
 	~Wall();
 
 	// Inherited via NonMoveable

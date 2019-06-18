@@ -5,9 +5,9 @@
 Graphics::Graphics()
 {
 	// Load all the pictures, font and music 
-	m_pictures.resize(18);
+	m_pictures.resize(22);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
-	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.jpg")   ) { std::cerr << "error in loading picture 1\n";};
+	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.png")   ) { std::cerr << "error in loading picture 1\n";};
 	if (!m_pictures[2].loadFromFile("Pictures/ice_icon.jpg")    ) { std::cerr << "error in loading picture 2\n";};
 	if (!m_pictures[3].loadFromFile("Pictures/guards_icon3.png") ) { std::cerr << "error in loading picture 3\n";};
 	if (!m_pictures[4].loadFromFile("Pictures/dragon1_icon1.png")) { std::cerr << "error in loading picture 4\n";};
@@ -25,6 +25,11 @@ Graphics::Graphics()
 	if (!m_pictures[15].loadFromFile("Pictures/map4.jpg")) { std::cerr << "error in loading picture 15\n"; };
 	if (!m_pictures[16].loadFromFile("Pictures/map5.jpg")) { std::cerr << "error in loading picture 16\n"; };
 	if (!m_pictures[17].loadFromFile("Pictures/map6.jpg")) { std::cerr << "error in loading picture 17\n"; };
+
+	if (!m_pictures[18].loadFromFile("Pictures/ice_icon_cracked.png")) { std::cerr << "error in loading picture 18\n"; };
+	if (!m_pictures[19].loadFromFile("Pictures/rock_icon_cracked.png")) { std::cerr << "error in loading picture 19\n"; };
+	if (!m_pictures[20].loadFromFile("Pictures/wood_icon_cracked.png")) { std::cerr << "error in loading picture 20\n"; };
+	if (!m_pictures[21].loadFromFile("Pictures/guards_icon4.png")) { std::cerr << "error in loading picture 21\n"; };
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };
 

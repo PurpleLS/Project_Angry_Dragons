@@ -12,6 +12,15 @@ NonMoveable::~NonMoveable()
 {
 }
 
+void NonMoveable::updateLife(int i)
+{
+	m_life -= i;
+	if (m_life <= 0)
+		m_dead = true;
+	if (m_life < 3)
+		updateSprite();
+}
+
 void NonMoveable::collision(GameObject & object)
 {
 	object.collision(*this);
