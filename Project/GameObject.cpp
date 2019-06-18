@@ -70,9 +70,6 @@ GameObject::GameObject(b2World & world, int width, sf::Vector2i vi, bool circle,
 	int i = rand() % 3;
 	m_rect = sf::IntRect(188 * i, 0, 188, 130);
 	m_sprite.setTextureRect(m_rect);
-	
-
-
 }
 
 GameObject::~GameObject()
@@ -89,8 +86,9 @@ GameObject::~GameObject()
 
 void GameObject::print(sf::RenderWindow & window)
 {
-	Dragons* x = dynamic_cast<Dragons*>(this);
-	if (x)
+	Dragons* d = dynamic_cast<Dragons*>(this);
+	Guards* g = dynamic_cast<Guards*>(this);
+	if (d || g)
 	{
 		if (m_spriteClock.getElapsedTime().asSeconds() > 0.3f)
 		{

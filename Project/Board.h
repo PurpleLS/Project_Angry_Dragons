@@ -17,6 +17,7 @@ public:
 	void readBoard(ifstream &file, b2World & world, sf::RenderWindow & window);
 	void deleteTheDead();
 	int getGuards();
+	void clear();
 private:
 	std::vector<std::unique_ptr<NonMoveable>> m_objects;
 	int m_guards=0;

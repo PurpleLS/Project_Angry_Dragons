@@ -105,3 +105,9 @@ int Board::getGuards()
 {
 	return m_guards;
 }
+
+void Board::clear()
+{
+	m_objects.clear();
+	m_guards = 0;
+}

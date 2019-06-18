@@ -17,7 +17,7 @@ bool Dragons::checkMovement()
 	float speedNow = m_body->GetLinearVelocity().Length();
 	if (speedNow <= 0.02 && m_body->GetType() == b2_dynamicBody)
 	{
-		if (m_clock.getElapsedTime().asSeconds() > 3.f)
+		if (m_clock.getElapsedTime().asSeconds() > 2.f)
 		{
 			m_body->GetWorld()->DestroyBody(m_body);
 			return false;

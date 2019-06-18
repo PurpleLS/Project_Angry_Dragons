@@ -7,7 +7,7 @@ class Dragons :
 public:
 	Dragons();
 	Dragons(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize) 
-		: GameObject(world, width, position, circle, windowSize) { m_type = 1;  m_active = false; m_body->SetType(b2_staticBody);}
+		: GameObject(world, width, position, circle, windowSize) { m_active = false; m_body->SetType(b2_staticBody);}
 	bool getActive() { return m_active; }
 	bool getIfStart() { return m_start; }
 	// bool getIfUsed() { return m_used; }

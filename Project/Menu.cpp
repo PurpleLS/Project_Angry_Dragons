@@ -11,7 +11,7 @@ Menu::~Menu()
 {
 }
 
-void Menu::openingScreen(sf::RenderWindow & window)
+void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 {
 	//Graphics::getInstance().playMusic();
 	Graphics::getInstance().getMusic()->play();
@@ -24,7 +24,7 @@ void Menu::openingScreen(sf::RenderWindow & window)
 	backgroundStart.setPosition({ 0,0 });
 
 	window.clear();
-	backgroundStart.setTexture(Graphics::getInstance().getTexture(9));
+	backgroundStart.setTexture(Graphics::getInstance().getTexture(index));
 	window.draw(backgroundStart);
 
 
@@ -36,7 +36,7 @@ void Menu::openingScreen(sf::RenderWindow & window)
 	playText.setCharacterSize(100);
 	playText.setFont(* Graphics::getInstance().getFont());
 	playText.setFillColor(sf::Color::White);
-	playText.setString("Play");
+	playText.setString(text);
 
 	window.draw(playButton);
 	window.draw(playText);

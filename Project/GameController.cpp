@@ -4,6 +4,7 @@
 #include "Viserion.h"
 #include "Graphics.h"
 #include "Menu.h"
+#include "LevelManager.h"
 
 
 
@@ -20,9 +21,19 @@ GameController::GameController(ifstream & file)
 	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
+	readLevel(file);	
+}
+
+
+GameController::~GameController()
+{	
+}
+
+void GameController::readLevel(ifstream & file)
+{
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
-	
+
 	//in FooTest constructor
 	m_world->SetContactListener(&myContactListenerInstance);
 
@@ -35,20 +46,6 @@ GameController::GameController(ifstream & file)
 	flags += b2Draw::e_shapeBit;
 	m_debugDrawInstance.SetFlags(flags);
 
-
-	readLevel(file);
-
-	createGround(*m_world, 400.f, 500.f);
-	
-}
-
-
-GameController::~GameController()
-{	
-}
-
-void GameController::readLevel(ifstream & file)
-{
 	// Life and points always start the same, get board rows, columns and level time from file 
 	int dragonsD, dragonsV, dragonsR;
 	file >> dragonsD >> dragonsV >> dragonsR;
@@ -83,15 +80,13 @@ void GameController::readLevel(ifstream & file)
 			++j;
 		}
 	}
-	
+	createGround(*m_world, 400.f, 500.f);
 }
 
 void GameController::run()
 {
-	Menu menu;
-	menu.openingScreen(m_window);
+	m_menu.transitionalScreen(m_window, "play", 9);
 
-	b2Body* BodyIterator = m_world->GetBodyList();	
 	sf::RectangleShape m_back;
 	m_back.setPosition({0, 0});
 	m_back.setSize({(float)m_window.getSize().x, (float)m_window.getSize().y});
@@ -102,13 +97,19 @@ void GameController::run()
 
 	while (m_window.isOpen())
 	{
+		if (checkEndLevel())
+		{
+			m_menu.transitionalScreen(m_window, "You Won!", 9);
+			// gameOver - levels end 
+
+			break;
+		}
 		checkActive();
-		checkEndLevel();
 		m_world->Step(1/60.f, 8, 3);
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-	//	m_world->DrawDebugData();
+		m_world->DrawDebugData();
 		m_window.display();
 		eventhandler();
 	}
@@ -205,7 +206,7 @@ void GameController::createGround(b2World & World, float X, float Y)
 
 	m_groundSprite.setTexture(*Graphics::getInstance().getTexture(7));
 
-	m_groundSprite.setOrigin(960.f, 25.f); // ????????????
+	m_groundSprite.setOrigin(960.f, 25.f);
 }
 
 void GameController::checkActive()
@@ -227,15 +228,61 @@ void GameController::checkActive()
 		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
 }
 
-void GameController::checkEndLevel()
+bool GameController::checkEndLevel()
 {
 	if (m_board.getGuards() == 0)
 	{
+		if(LevelManager::getInstance().gameOver())
+			return true;
+
 		// next level
+		//sf::Sprite suc;
+		//sf::Texture tex;
+		//tex.loadFromFile("Pictures/level_cleared.jpg");
+		//suc.setTexture(tex);
+		//m_window.clear();
+		//m_window.draw(suc);
+		//m_window.display();
+		//Sleep(3000);
+
+		m_menu.transitionalScreen(m_window, "Next Level", 10);
+		
+		m_world.release();
+		m_dragons.clear();
+		m_board.clear();
+
+		if (m_world.get() == nullptr)
+			cout << "new level" << endl;
+		else
+			cout << " World was NOT released" << endl;
+
+		readLevel(LevelManager::getInstance().getNextLevel());
 	}
 	if (m_dragons.size() == 0)
 	{
+		//sf::Sprite fail;
+		//sf::Texture tex;
+		//tex.loadFromFile("Pictures/fail.jpg");
+		//fail.setTexture(tex);
+		//m_window.clear();
+		//m_window.draw(fail);
+		//m_window.display();
+		//Sleep(3000);
+
+		m_menu.transitionalScreen(m_window, "Try Again", 11);
+
 		// try again
+		m_world.release();
+		m_dragons.clear();
+		m_board.clear();
+
+		if (m_world.get() == nullptr)
+			cout << "new level" << endl;
+		else
+			cout << " World was NOT released" << endl;
+
+		readLevel(LevelManager::getInstance().getCurrentLevel());
 	}
+	return false;
 }
 
