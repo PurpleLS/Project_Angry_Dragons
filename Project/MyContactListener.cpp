@@ -12,7 +12,7 @@ MyContactListener::~MyContactListener()
 
 void MyContactListener::BeginContact(b2Contact* contact)
 {
-
+	// Starts listening for body collisions
 	GameObject* bodyUserData1 = static_cast<GameObject*> (contact->GetFixtureA()->GetBody()->GetUserData());
 
 	GameObject* bodyUserData2 = static_cast<GameObject*> (contact->GetFixtureB()->GetBody()->GetUserData());

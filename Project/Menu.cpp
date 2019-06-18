@@ -14,7 +14,7 @@ Menu::~Menu()
 
 void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 {
-	//Graphics::getInstance().playMusic();
+	// Transitional screens between levels
 	Graphics::getInstance().getMusic()->play();
 	sf::RectangleShape playButton;
 	sf::Text playText;
@@ -76,6 +76,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 
 void Menu::viewMap(sf::RenderWindow & window)
 {
+	// Shows the users current progress by showing the map
 	int index = LevelManager::getInstance().getIndexLevel();
 	sf::RectangleShape map;
 

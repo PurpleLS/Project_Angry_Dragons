@@ -45,6 +45,3 @@ void NonMoveable::collision(Guards & object)
 {
 }
 
-//void NonMoveable::coillision()
-//{
-//}

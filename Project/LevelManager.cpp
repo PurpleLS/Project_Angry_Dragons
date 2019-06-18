@@ -12,6 +12,7 @@ LevelManager::~LevelManager()
 
 ifstream & LevelManager::getNextLevel()
 {
+	// Load the next level 
 	m_levelIndex++;
 	if (m_file.is_open())
 		m_file.close();
@@ -27,6 +28,7 @@ ifstream & LevelManager::getNextLevel()
 
 ifstream & LevelManager::getCurrentLevel()
 {
+	// Get the current level 
 	if(m_file.is_open())
 		m_file.close();
 	string fileName = "level" + to_string(m_levelIndex) + ".txt";
@@ -41,6 +43,7 @@ ifstream & LevelManager::getCurrentLevel()
 
 bool LevelManager::gameOver()
 {
+	// Checks if the game is over 
 	if (m_levelIndex < MAX_LEVELS)
 		return false;
 	m_levelIndex++;

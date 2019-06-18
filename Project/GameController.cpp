@@ -11,23 +11,10 @@
 
 GameController::GameController()
 {
-	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
-	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
+	m_window.create(sf::VideoMode(), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
 	m_window.setFramerateLimit(60);
-	
 	readLevel(LevelManager::getInstance().getCurrentLevel());
 }
-
-//
-//GameController::GameController(ifstream & file)
-//{
-//	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
-//	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
-//	m_window.setFramerateLimit(60);
-//
-//	readLevel(file);
-//}
-
 
 GameController::~GameController()
 {	
@@ -35,12 +22,12 @@ GameController::~GameController()
 
 void GameController::readLevel(ifstream & file)
 {
+	// Creates the level based on what was in the text file
 	b2Vec2 m_gravity(0.0f, 9.8f);
 	m_world = std::make_unique<b2World>(m_gravity);
-
-	//in FooTest constructor
 	m_world->SetContactListener(&myContactListenerInstance);
 
+	// Debug draw - we can erase
 	m_world->SetDebugDraw(&m_debugDrawInstance);
 	uint32 flags = 0;
 	flags += b2Draw::e_aabbBit;
@@ -50,9 +37,7 @@ void GameController::readLevel(ifstream & file)
 	flags += b2Draw::e_shapeBit;
 	m_debugDrawInstance.SetFlags(flags);
 
-	//---------------------------------------------
-	 // for the screenBorder body we'll need these values
-	// CGSize screenSize = [CCDirector sharedDirector].winSize;
+	// Create borders for the screen so dragon cannot escape
 	float widthInMeters = m_window.getSize().x / SCALE;
 	float heightInMeters = m_window.getSize().y / SCALE;
 	b2Vec2 lowerLeftCorner = b2Vec2(0, 0);
@@ -60,13 +45,11 @@ void GameController::readLevel(ifstream & file)
 	b2Vec2 upperLeftCorner = b2Vec2(0, heightInMeters);
 	b2Vec2 upperRightCorner = b2Vec2(widthInMeters, heightInMeters);
 
-	// static container body, with the collisions at screen borders
 	b2BodyDef screenBorderDef;
 	screenBorderDef.position.Set(0, 0);
 	b2Body* screenBorderBody = m_world->CreateBody(&screenBorderDef);
 	b2EdgeShape screenBorderShape;
 
-	// Create fixtures for the four borders (the border shape is re-used)
 	screenBorderShape.Set(lowerLeftCorner, lowerRightCorner);
 	screenBorderBody->CreateFixture(&screenBorderShape, 0);
 	screenBorderShape.Set(lowerRightCorner, upperRightCorner);
@@ -75,7 +58,6 @@ void GameController::readLevel(ifstream & file)
 	screenBorderBody->CreateFixture(&screenBorderShape, 0);
 	screenBorderShape.Set(upperLeftCorner, lowerLeftCorner);
 	screenBorderBody->CreateFixture(&screenBorderShape, 0);
-	//---------------------------------------------
 
 	// Life and points always start the same, get board rows, columns and level time from file 
 	int dragonsD, dragonsV, dragonsR;
@@ -85,6 +67,7 @@ void GameController::readLevel(ifstream & file)
 
 	sf::Vector2i vi;
 
+	// Create the dragons
 	int j = 0;
 	while (dragonsD != 0 || dragonsV != 0 || dragonsR != 0)
 	{
@@ -116,6 +99,7 @@ void GameController::readLevel(ifstream & file)
 
 void GameController::run()
 {
+	// Start the game
 	m_menu.transitionalScreen(m_window, "play", 9);
 	m_menu.viewMap(m_window);
 
@@ -134,7 +118,6 @@ void GameController::run()
 			m_menu.viewMap(m_window);
 			m_menu.transitionalScreen(m_window, "You Won", 9);
 			// gameOver - levels end 
-
 			break;
 		}
 		checkActive();
@@ -142,7 +125,7 @@ void GameController::run()
 		m_window.clear(sf::Color::White);
 		m_window.draw(m_back);
 		print();
-		m_world->DrawDebugData();
+		m_world->DrawDebugData(); // Debug draw - we can erase
 		m_window.display();
 		eventhandler();
 	}
@@ -173,7 +156,7 @@ void GameController::eventhandler()
 					sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (m_dragons[m_dragons.size() - 1]->getSprite().getGlobalBounds().contains(mousePos))
 					{
-						if (!m_dragons[m_dragons.size() - 1]->getIfDead()) // getIfUsed()
+						if (!m_dragons[m_dragons.size() - 1]->getIfDead()) 
 						{// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
 							m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
 							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
@@ -188,6 +171,7 @@ void GameController::eventhandler()
 		case sf::Event::MouseButtonReleased:
 			if (m_dragons[m_dragons.size() - 1]->getActive() && m_dragons[m_dragons.size() - 1]->getIfStart())
 			{
+				// The user let go of the dragon (after dragging it)
 				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
 				m_dragons[m_dragons.size() - 1]->launchDragon();
@@ -209,6 +193,7 @@ void GameController::eventhandler()
 
 void GameController::print()
 {
+	// Prints the world and bodies
 	b2Body* bodyIterator = m_world->GetBodyList();
 
 	m_groundSprite.setPosition(bodyIterator->GetPosition().x * SCALE, bodyIterator->GetPosition().y * SCALE);//updates position
@@ -245,10 +230,8 @@ void GameController::createGround(b2World & World, float X, float Y)
 
 void GameController::checkActive()
 {
+	// Check which of the dragons is active 
 	bool x = false;
-	/* for (int i = 0; i < m_dragons.size(); i++)
-	{
-	*/
 	if (m_dragons[m_dragons.size()-1]->getActive())
 	{
 		if (!m_dragons[m_dragons.size() - 1]->checkMovement())
@@ -264,8 +247,10 @@ void GameController::checkActive()
 
 bool GameController::checkEndLevel()
 {
+	// Check if the level has ended 
 	if (m_board.getGuards() == 0)
 	{
+		// User beat level, get the next one
 		if (m_clock.getElapsedTime().asSeconds() > 2.f)
 		{
 			if (LevelManager::getInstance().gameOver())
@@ -286,14 +271,13 @@ bool GameController::checkEndLevel()
 
 			readLevel(LevelManager::getInstance().getNextLevel());
 			m_menu.viewMap(m_window);
-
 		}
 	}
 	else
 		m_clock.restart();
 	if (m_dragons.size() == 0)
 	{
-		// try again
+		// User failed, load the same level again
 		m_menu.transitionalScreen(m_window, "Try Again", 11);
 		m_menu.viewMap(m_window);
 

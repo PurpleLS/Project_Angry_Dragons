@@ -4,6 +4,7 @@
 
 Graphics::Graphics()
 {
+	// Load all the pictures, font and music 
 	m_pictures.resize(18);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.jpg")   ) { std::cerr << "error in loading picture 1\n";};

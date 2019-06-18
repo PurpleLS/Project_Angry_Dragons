@@ -21,6 +21,7 @@ Guards::~Guards()
 {
 }
 
+// Check if the guard is above or below 
 bool Guards::checkAbove(float gY, float wY)
 {
 	if (gY >= wY)

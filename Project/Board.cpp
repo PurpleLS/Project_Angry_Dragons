@@ -15,29 +15,18 @@ Board::~Board()
 {
 }
 
-/* void Board::print(sf::RenderWindow & window, b2World & world, b2Body* bodyIterator)
-{
-	bodyIterator = bodyIterator->GetNext();
-	for (int i = 0; i < m_objects.size(); ++i)
-	{
-		if (bodyIterator == 0)
-			break;
-		m_objects[i]->print(bodyIterator->GetPosition(), bodyIterator->GetAngle());
-		window.draw(m_objects[i]->getSprite());
-		bodyIterator = bodyIterator->GetNext();
-	}
-}
-*/
 
 void Board::print(sf::RenderWindow & window)
 {
+	// Print the objects on the board
 	deleteTheDead();
 	for (int i = 0; i < m_objects.size(); i++)
 		m_objects[i]->print(window);
 }
 
 void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & window)
-{
+{ 
+	// Gets all the objects from a text file
 	char c;
 	int rows, columns;
 	file >> rows >> columns;
@@ -58,6 +47,7 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 			d = file.peek();
 			while(c == d && c != '!')
 			{
+				// Check if they are longer
 				count++;
 				d = file.get();
 				d = file.peek();
@@ -90,6 +80,7 @@ void Board::readBoard(ifstream & file, b2World & world , sf::RenderWindow & wind
 
 void Board::deleteTheDead()
 {
+	// Erase all the objects that died
 	for (int i = 0; i < m_objects.size(); ++i)
 		if (m_objects[i]->getIfDead())
 		{
@@ -108,6 +99,7 @@ int Board::getGuards()
 
 void Board::clear()
 {
+	// Clear board
 	m_objects.clear();
 	m_guards = 0;
 }
