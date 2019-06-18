@@ -13,7 +13,8 @@ LevelManager::~LevelManager()
 ifstream & LevelManager::getNextLevel()
 {
 	m_levelIndex++;
-	m_file.close();
+	if (m_file.is_open())
+		m_file.close();
 	string fileName = "level" + to_string(m_levelIndex) + ".txt";
 	m_file.open(fileName);
 	if (!m_file.is_open())
@@ -26,7 +27,15 @@ ifstream & LevelManager::getNextLevel()
 
 ifstream & LevelManager::getCurrentLevel()
 {
-	// --
+	if(m_file.is_open())
+		m_file.close();
+	string fileName = "level" + to_string(m_levelIndex) + ".txt";
+	m_file.open(fileName);
+	if (!m_file.is_open())
+	{
+		cout << "The file could not open " << endl;
+		exit(EXIT_FAILURE);
+	}
 	return m_file;
 }
 
@@ -34,6 +43,7 @@ bool LevelManager::gameOver()
 {
 	if (m_levelIndex < MAX_LEVELS)
 		return false;
+	m_levelIndex++;
 	return true;
 }
 

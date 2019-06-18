@@ -4,7 +4,7 @@
 
 Graphics::Graphics()
 {
-	m_pictures.resize(12);
+	m_pictures.resize(18);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.jpg")   ) { std::cerr << "error in loading picture 1\n";};
 	if (!m_pictures[2].loadFromFile("Pictures/ice_icon.jpg")    ) { std::cerr << "error in loading picture 2\n";};
@@ -17,6 +17,13 @@ Graphics::Graphics()
 	if (!m_pictures[9].loadFromFile("Pictures/backgroundStart_icon.jpeg")) { std::cerr << "error in loading picture 9\n"; };
 	if (!m_pictures[10].loadFromFile("Pictures/level_cleared.jpg")) { std::cerr << "error in loading picture 10\n"; };
 	if (!m_pictures[11].loadFromFile("Pictures/fail.jpg")) { std::cerr << "error in loading picture 11\n"; };
+
+	if (!m_pictures[12].loadFromFile("Pictures/map1.jpg")) { std::cerr << "error in loading picture 12\n"; };
+	if (!m_pictures[13].loadFromFile("Pictures/map2.jpg")) { std::cerr << "error in loading picture 13\n"; };
+	if (!m_pictures[14].loadFromFile("Pictures/map3.jpg")) { std::cerr << "error in loading picture 14\n"; };
+	if (!m_pictures[15].loadFromFile("Pictures/map4.jpg")) { std::cerr << "error in loading picture 15\n"; };
+	if (!m_pictures[16].loadFromFile("Pictures/map5.jpg")) { std::cerr << "error in loading picture 16\n"; };
+	if (!m_pictures[17].loadFromFile("Pictures/map6.jpg")) { std::cerr << "error in loading picture 17\n"; };
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };
 

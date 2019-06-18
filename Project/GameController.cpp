@@ -11,18 +11,22 @@
 
 GameController::GameController()
 {
-	
-}
-
-
-GameController::GameController(ifstream & file)
-{
 	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
 	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
 	m_window.setFramerateLimit(60);
-
-	readLevel(file);	
+	
+	readLevel(LevelManager::getInstance().getCurrentLevel());
 }
+
+//
+//GameController::GameController(ifstream & file)
+//{
+//	m_window.create(sf::VideoMode(/*1920, 800, 32*/), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
+//	// m_window.create(sf::VideoMode(800, 600), "Angry Dragons", sf::Style::Close);
+//	m_window.setFramerateLimit(60);
+//
+//	readLevel(file);
+//}
 
 
 GameController::~GameController()
@@ -45,6 +49,33 @@ void GameController::readLevel(ifstream & file)
 	flags += b2Draw::e_pairBit;
 	flags += b2Draw::e_shapeBit;
 	m_debugDrawInstance.SetFlags(flags);
+
+	//---------------------------------------------
+	 // for the screenBorder body we'll need these values
+	// CGSize screenSize = [CCDirector sharedDirector].winSize;
+	float widthInMeters = m_window.getSize().x / SCALE;
+	float heightInMeters = m_window.getSize().y / SCALE;
+	b2Vec2 lowerLeftCorner = b2Vec2(0, 0);
+	b2Vec2 lowerRightCorner = b2Vec2(widthInMeters, 0);
+	b2Vec2 upperLeftCorner = b2Vec2(0, heightInMeters);
+	b2Vec2 upperRightCorner = b2Vec2(widthInMeters, heightInMeters);
+
+	// static container body, with the collisions at screen borders
+	b2BodyDef screenBorderDef;
+	screenBorderDef.position.Set(0, 0);
+	b2Body* screenBorderBody = m_world->CreateBody(&screenBorderDef);
+	b2EdgeShape screenBorderShape;
+
+	// Create fixtures for the four borders (the border shape is re-used)
+	screenBorderShape.Set(lowerLeftCorner, lowerRightCorner);
+	screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	screenBorderShape.Set(lowerRightCorner, upperRightCorner);
+	screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	screenBorderShape.Set(upperRightCorner, upperLeftCorner);
+	screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	screenBorderShape.Set(upperLeftCorner, lowerLeftCorner);
+	screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	//---------------------------------------------
 
 	// Life and points always start the same, get board rows, columns and level time from file 
 	int dragonsD, dragonsV, dragonsR;
@@ -86,6 +117,7 @@ void GameController::readLevel(ifstream & file)
 void GameController::run()
 {
 	m_menu.transitionalScreen(m_window, "play", 9);
+	m_menu.viewMap(m_window);
 
 	sf::RectangleShape m_back;
 	m_back.setPosition({0, 0});
@@ -99,7 +131,8 @@ void GameController::run()
 	{
 		if (checkEndLevel())
 		{
-			m_menu.transitionalScreen(m_window, "You Won!", 9);
+			m_menu.viewMap(m_window);
+			m_menu.transitionalScreen(m_window, "You Won", 9);
 			// gameOver - levels end 
 
 			break;
@@ -145,7 +178,8 @@ void GameController::eventhandler()
 							m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
 							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
 							float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
-							m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY });
+							if(mouseY > m_window.getSize().y - 20)
+								m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY });
 						}
 					}
 				}
@@ -232,46 +266,37 @@ bool GameController::checkEndLevel()
 {
 	if (m_board.getGuards() == 0)
 	{
-		if(LevelManager::getInstance().gameOver())
-			return true;
+		if (m_clock.getElapsedTime().asSeconds() > 2.f)
+		{
+			if (LevelManager::getInstance().gameOver())
+				return true;
 
-		// next level
-		//sf::Sprite suc;
-		//sf::Texture tex;
-		//tex.loadFromFile("Pictures/level_cleared.jpg");
-		//suc.setTexture(tex);
-		//m_window.clear();
-		//m_window.draw(suc);
-		//m_window.display();
-		//Sleep(3000);
+			// next level
 
-		m_menu.transitionalScreen(m_window, "Next Level", 10);
-		
-		m_world.release();
-		m_dragons.clear();
-		m_board.clear();
+			m_menu.transitionalScreen(m_window, "Next Level", 10);
 
-		if (m_world.get() == nullptr)
-			cout << "new level" << endl;
-		else
-			cout << " World was NOT released" << endl;
+			m_world.release();
+			m_dragons.clear();
+			m_board.clear();
 
-		readLevel(LevelManager::getInstance().getNextLevel());
+			if (m_world.get() == nullptr)
+				cout << "new level" << endl;
+			else
+				cout << " World was NOT released" << endl;
+
+			readLevel(LevelManager::getInstance().getNextLevel());
+			m_menu.viewMap(m_window);
+
+		}
 	}
+	else
+		m_clock.restart();
 	if (m_dragons.size() == 0)
 	{
-		//sf::Sprite fail;
-		//sf::Texture tex;
-		//tex.loadFromFile("Pictures/fail.jpg");
-		//fail.setTexture(tex);
-		//m_window.clear();
-		//m_window.draw(fail);
-		//m_window.display();
-		//Sleep(3000);
-
-		m_menu.transitionalScreen(m_window, "Try Again", 11);
-
 		// try again
+		m_menu.transitionalScreen(m_window, "Try Again", 11);
+		m_menu.viewMap(m_window);
+
 		m_world.release();
 		m_dragons.clear();
 		m_board.clear();
@@ -282,6 +307,7 @@ bool GameController::checkEndLevel()
 			cout << " World was NOT released" << endl;
 
 		readLevel(LevelManager::getInstance().getCurrentLevel());
+		m_menu.viewMap(m_window);
 	}
 	return false;
 }

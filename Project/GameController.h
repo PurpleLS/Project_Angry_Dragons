@@ -23,17 +23,20 @@ class GameController
 {
 public:
 	GameController();
-	GameController(ifstream &file);
+	// GameController(ifstream &file);
+	void run();
 	~GameController();
+
+private:
 	void readLevel(ifstream &file);
 	void eventhandler();
-	void run();
 	void print();
 	void createGround(b2World& World, float X, float Y);
 	void checkActive();
 	bool checkEndLevel();
-	// void checkcollision();
-private:
+	sf::Clock m_clock;
+
+
 	b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
 	sf::RenderWindow m_window;

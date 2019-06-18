@@ -30,14 +30,16 @@ int main()
 	srand((unsigned)time(0));
 	// Open file
 	
-	ifstream file("level1.txt");
+	/*ifstream file("level1.txt");
 	if (!file.is_open())
 	{
 		cout << "The file could not open " << endl;
 		return EXIT_FAILURE;
-	}
-	GameController game(file);
-    game.run();
+	}*/
+	
+	GameController game;
+	game.run();
+    
 
 /*
 	//--------------------------------

@@ -1,5 +1,6 @@
 #include "Menu.h"
 
+#include <Windows.h>
 
 
 Menu::Menu()
@@ -71,4 +72,20 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	Graphics::getInstance().getMusic()->setVolume(20);
 	// Graphics::getInstance().stopMusic();
 // background.setTexture(graphics.getTexture(12));
+}
+
+void Menu::viewMap(sf::RenderWindow & window)
+{
+	int index = LevelManager::getInstance().getIndexLevel();
+	sf::RectangleShape map;
+
+	map.setSize({ (float)window.getSize().x, (float)window.getSize().y });
+
+	window.clear();
+	map.setTexture(Graphics::getInstance().getTexture(index + 11));
+	window.draw(map);
+	window.display();
+
+	Sleep(3000);
+	
 }
