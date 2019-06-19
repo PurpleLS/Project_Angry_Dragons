@@ -35,7 +35,7 @@ void Dragons::launchDragon()
 {
 	// Activate the dragon launch sequence
 	m_body->SetType(b2_dynamicBody);
-	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_sprite.getPosition().x) * 25 / 100) , (float32)((m_mousePositionStart.y - m_sprite.getPosition().y) * 25 / 100)});
+	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_sprite.getPosition().x) * 25 / 100) , (float32)((m_mousePositionStart.y - m_sprite.getPosition().y) * 25 / 100) });
 	m_body->SetLinearVelocity(vec);
 	m_start = false;
 	m_dead = true;

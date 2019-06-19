@@ -157,7 +157,6 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MyContactListener.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Rhaegal.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Guards.h" />
@@ -179,7 +178,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MyContactListener.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rhaegal.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Guards.cpp" />
@@ -188,9 +186,6 @@
     <ClCompile Include="Viserion.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Wood.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

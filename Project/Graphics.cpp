@@ -4,7 +4,7 @@
 
 Graphics::Graphics()
 {
-	// Load all the pictures, font and music 
+	// Load all the pictures, font, music and sounds
 	m_pictures.resize(24);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.png")   ) { std::cerr << "error in loading picture 1\n";};
@@ -35,8 +35,15 @@ Graphics::Graphics()
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };
 
-	if (!m_music.openFromFile("Audio/Opening.wav")) { std::cerr << "error in loading sound\n"; };
+	if (!m_music.openFromFile("Audio/Opening.wav")) { std::cerr << "error in loading music\n"; };
 	m_music.setLoop(true);
+
+	m_sounds.resize(1);
+	if(!m_buffers[0].loadFromFile("Sounds/sound_fly.wav")){ std::cerr << "error in loading sound to buffer 0\n"; }
+	
+	for(int i = 0; i < m_buffers.size(); ++i)
+		m_sounds[i].setBuffer(m_buffers[i]);
+
 }
 
 const sf::Texture * Graphics::getTexture(int index) const
@@ -45,7 +52,16 @@ const sf::Texture * Graphics::getTexture(int index) const
 	{
 		return &m_pictures[index];
 	}
-	return &m_pictures[0];//check this
+	return &m_pictures[0];
+}
+
+const sf::Sound * Graphics::getSound(int index) const
+{
+	if (index > 0 && index < m_sounds.size())
+	{
+		return &m_sounds[index];
+	}
+	return &m_sounds[0];
 }
 
 const sf::Font * Graphics::getFont() const
