@@ -30,7 +30,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	window.draw(backgroundStart);
 
 
-	playButton.setFillColor(sf::Color::Red);
+	playButton.setFillColor(sf::Color::Transparent);
 	playButton.setPosition({(float)(window.getSize().x /2) - 150, (float)(window.getSize().y / 2)  + 200});
 	playButton.setSize({ 285, 100 });
 
@@ -40,7 +40,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	playText.setFillColor(sf::Color::White);
 	playText.setString(text);
 
-	helpButton.setFillColor(sf::Color::Blue);
+	helpButton.setFillColor(sf::Color::Transparent);
 	helpButton.setPosition({ (float)(window.getSize().x / 2) - 150, (float)(window.getSize().y / 2) + 350 });
 	helpButton.setSize({ 295, 100 });
 

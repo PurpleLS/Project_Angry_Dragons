@@ -13,6 +13,18 @@ GameController::GameController()
 {
 	m_window.create(sf::VideoMode(), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
 	m_window.setFramerateLimit(60);
+
+	/*
+	sf::RectangleShape background;
+
+	background.setSize({ (float)m_window.getSize().x, (float)m_window.getSize().y });
+	background.setPosition({ 0,0 });
+
+	m_window.clear();
+	background.setTexture(Graphics::getInstance().getTexture(9));
+	m_window.draw(background);
+	*/
+
 	readLevel(LevelManager::getInstance().getCurrentLevel());
 }
 
@@ -28,6 +40,7 @@ void GameController::readLevel(ifstream & file)
 	m_world->SetContactListener(&myContactListenerInstance);
 
 	// Debug draw - we can erase
+	/*
 	m_world->SetDebugDraw(&m_debugDrawInstance);
 	uint32 flags = 0;
 	flags += b2Draw::e_aabbBit;
@@ -36,6 +49,7 @@ void GameController::readLevel(ifstream & file)
 	flags += b2Draw::e_pairBit;
 	flags += b2Draw::e_shapeBit;
 	m_debugDrawInstance.SetFlags(flags);
+	*/
 
 	// Create borders for the screen so dragon cannot escape
 	float widthInMeters = m_window.getSize().x / SCALE;
@@ -103,7 +117,7 @@ void GameController::run()
 	Graphics::getInstance().getMusic()->play();
 
 	m_menu.transitionalScreen(m_window, "play", 9);
-	Graphics::getInstance().getMusic()->setVolume(30);
+	Graphics::getInstance().getMusic()->setVolume(10);
 	m_menu.viewMap(m_window);
 
 	sf::RectangleShape m_back;
@@ -143,7 +157,7 @@ void GameController::eventhandler()
 
 		switch (event.type)
 		{
-		
+
 		case sf::Event::Closed:
 			m_window.close();
 			break;
@@ -152,21 +166,21 @@ void GameController::eventhandler()
 			if (event.key.code == sf::Keyboard::Escape)
 				m_window.close();
 			break;
-		
+
 		case sf::Event::MouseButtonPressed:
-			if (event.mouseButton.button == sf::Mouse::Left)
+			if (event.mouseButton.button == sf::Mouse::Left && m_dragons.size() > 0)
 			{
 				if (m_dragons[m_dragons.size() - 1]->getActive())
 				{
 					sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 					if (m_dragons[m_dragons.size() - 1]->getSprite().getGlobalBounds().contains(mousePos))
 					{
-						if (!m_dragons[m_dragons.size() - 1]->getIfDead()) 
+						if (!m_dragons[m_dragons.size() - 1]->getIfDead())
 						{// If the user left clicked on mouse, if the dragon is active AND if it contains the mouse pos:
 							m_dragons[m_dragons.size() - 1]->setMousePositionStart(mousePos);
 							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
 							float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
-							if(mouseY > m_window.getSize().y - 20)
+							if (mouseY > m_window.getSize().y - 20 && m_dragons.size() > 0)
 								m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY }, m_window);
 						}
 					}
@@ -174,21 +188,27 @@ void GameController::eventhandler()
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
-			if (m_dragons[m_dragons.size() - 1]->getActive() && m_dragons[m_dragons.size() - 1]->getIfStart())
+			if (m_dragons.size() > 0)
 			{
-				// The user let go of the dragon (after dragging it)
-				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-				// m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
-				m_dragons[m_dragons.size() - 1]->launchDragon();
+				if (m_dragons[m_dragons.size() - 1]->getActive() && m_dragons[m_dragons.size() - 1]->getIfStart())
+				{
+					// The user let go of the dragon (after dragging it)
+					sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					// m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
+					m_dragons[m_dragons.size() - 1]->launchDragon();
+				}
 			}
 			break;
 
 		case sf::Event::MouseMoved:
-			if (m_dragons[m_dragons.size() - 1]->getIfStart())
+			if (m_dragons.size() > 0)
 			{
-				float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
-				float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
-				m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY }, m_window);
+				if (m_dragons[m_dragons.size() - 1]->getIfStart())
+				{
+					float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
+					float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
+					m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY }, m_window);
+				}
 			}
 			break;
 
@@ -237,17 +257,21 @@ void GameController::checkActive()
 {
 	// Check which of the dragons is active 
 	bool x = false;
-	if (m_dragons[m_dragons.size()-1]->getActive())
+	if(m_dragons.size() > 0)
 	{
-		if (!m_dragons[m_dragons.size() - 1]->checkMovement())
+
+		if (m_dragons[m_dragons.size() - 1]->getActive())
 		{
-			m_dragons.pop_back();
+			if (!m_dragons[m_dragons.size() - 1]->checkMovement())
+			{
+				m_dragons.pop_back();
+			}
+			else
+				x = true;
 		}
-		else
-			x = true;
+		else if (!x && m_dragons.size() > 0)
+			m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y);
 	}
-	else if(!x && m_dragons.size() > 0)
-		m_dragons[m_dragons.size() - 1]->setActive(m_window.getSize().x, m_window.getSize().y); 
 }
 
 bool GameController::checkEndLevel()

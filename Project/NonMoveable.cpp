@@ -16,9 +16,18 @@ void NonMoveable::updateLife(int i)
 {
 	m_life -= i;
 	if (m_life <= 0)
+	{
 		m_dead = true;
+		if(Guards* x = dynamic_cast<Guards*>(this))
+			Graphics::getInstance().playSound(2);
+	}
 	if (m_life < 4)
+	{
 		updateSprite();
+		Guards* x = dynamic_cast<Guards*>(this);
+		if(!x)
+			Graphics::getInstance().playSound(1);
+	}
 }
 
 void NonMoveable::collision(GameObject & object)

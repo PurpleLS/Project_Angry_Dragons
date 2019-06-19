@@ -20,6 +20,6 @@ void MyContactListener::BeginContact(b2Contact* contact)
 	if (bodyUserData1 != nullptr && bodyUserData2 != nullptr)
 	{
 		bodyUserData1->collision(*bodyUserData2);
-
+		Graphics::getInstance().playSound(4);
 	}
 }

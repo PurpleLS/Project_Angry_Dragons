@@ -38,18 +38,18 @@ void Dragons::launchDragon()
 	b2Vec2 vec({ (float32)((m_mousePositionStart.x - m_sprite.getPosition().x) * 25 / 100) , (float32)((m_mousePositionStart.y - m_sprite.getPosition().y) * 25 / 100) });
 	m_body->SetLinearVelocity(vec);
 	m_start = false;
+	Graphics::getInstance().stopSound(0);
+	Graphics::getInstance().playSound(3);
 	m_dead = true;
 }
 
 void Dragons::moveDragon(sf::Vector2f position, sf::RenderWindow & window)
 {
 	// Causes dragon to follow mouse - looks like user is dragging the dragon
-	// std::cout << "sprite x:" << m_sprite.getPosition().x << " y:" << m_sprite.getPosition().x << std::endl;
-	if ((m_mousePositionStart.x - position.x) > 1 && (m_mousePositionStart.y - position.y) < 150)
+	if ((m_mousePositionStart.x - position.x) > 1 && abs(m_mousePositionStart.y - position.y) < 150 )
 	{
 		m_body->SetTransform(b2Vec2{ (position.x) / SCALE, (position.y) / SCALE }, 0);
 	}
-	// std::cout << "mouse x:" << position.x << " y:" << position.y << std::endl;
 }
 
 Dragons::~Dragons()

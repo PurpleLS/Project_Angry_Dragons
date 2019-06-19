@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+std::vector<sf::Sound> Graphics::m_sounds;
+
 Graphics::Graphics()
 {
 	// Load all the pictures, font, music and sounds
@@ -38,12 +40,21 @@ Graphics::Graphics()
 	if (!m_music.openFromFile("Audio/Opening.wav")) { std::cerr << "error in loading music\n"; };
 	m_music.setLoop(true);
 
-	m_sounds.resize(1);
-	if(!m_buffers[0].loadFromFile("Sounds/sound_fly.wav")){ std::cerr << "error in loading sound to buffer 0\n"; }
+	m_buffers.resize(5);
+	if (!m_buffers[0].loadFromFile("Audio/sound_slingshot.wav")){ std::cerr << "error in loading sound to buffer 0\n"; }
+	if (!m_buffers[1].loadFromFile("Audio/sound_break.wav")) { std::cerr << "error in loading sound to buffer 0\n"; }
+	if (!m_buffers[2].loadFromFile("Audio/sound_die.wav")) { std::cerr << "error in loading sound to buffer 0\n"; }
+	if (!m_buffers[3].loadFromFile("Audio/sound_fly.wav")) { std::cerr << "error in loading sound to buffer 0\n"; }
+	if (!m_buffers[4].loadFromFile("Audio/sound_hit.wav")) { std::cerr << "error in loading sound to buffer 0\n"; }
 	
-	for(int i = 0; i < m_buffers.size(); ++i)
+	m_sounds.resize(5);
+	for (int i = 0; i < m_buffers.size(); ++i)
+	{
 		m_sounds[i].setBuffer(m_buffers[i]);
-
+		m_sounds[i].setVolume(100);
+	}
+	m_sounds[1].setVolume(5);
+	m_sounds[4].setVolume(5);
 }
 
 const sf::Texture * Graphics::getTexture(int index) const
@@ -53,15 +64,6 @@ const sf::Texture * Graphics::getTexture(int index) const
 		return &m_pictures[index];
 	}
 	return &m_pictures[0];
-}
-
-const sf::Sound * Graphics::getSound(int index) const
-{
-	if (index > 0 && index < m_sounds.size())
-	{
-		return &m_sounds[index];
-	}
-	return &m_sounds[0];
 }
 
 const sf::Font * Graphics::getFont() const

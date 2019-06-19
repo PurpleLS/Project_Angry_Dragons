@@ -37,7 +37,7 @@ private:
 	sf::Clock m_clock;
 
 
-	b2GLDraw m_debugDrawInstance;
+	// b2GLDraw m_debugDrawInstance;
 	std::unique_ptr<b2World> m_world;
 	sf::RenderWindow m_window;
 	Board m_board;
