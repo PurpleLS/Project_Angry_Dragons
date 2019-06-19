@@ -12,5 +12,7 @@ public:
 	~Menu();
 	void transitionalScreen(sf::RenderWindow & window, string text, int index);
 	void viewMap(sf::RenderWindow & window);
+private:
+	bool m_help = false;
 };
 

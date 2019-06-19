@@ -30,7 +30,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	window.draw(backgroundStart);
 
 
-	playButton.setFillColor(sf::Color::Transparent);
+	playButton.setFillColor(sf::Color::Red);
 	playButton.setPosition({(float)(window.getSize().x /2) - 150, (float)(window.getSize().y / 2)  + 200});
 	playButton.setSize({ 285, 100 });
 
@@ -40,7 +40,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	playText.setFillColor(sf::Color::White);
 	playText.setString(text);
 
-	helpButton.setFillColor(sf::Color::Transparent);
+	helpButton.setFillColor(sf::Color::Blue);
 	helpButton.setPosition({ (float)(window.getSize().x / 2) - 150, (float)(window.getSize().y / 2) + 350 });
 	helpButton.setSize({ 295, 100 });
 
@@ -50,43 +50,49 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	helpText.setFillColor(sf::Color::White);
 	helpText.setString("help");
 
+	window.draw(backgroundStart);
+	window.draw(helpButton);
+	window.draw(helpText);
+	window.draw(playButton);
+	window.draw(playText);
+	window.display();
 
 	sf::Event event;
 	while (window.waitEvent(event))
 	{
-		window.draw(backgroundStart);
-		window.draw(helpButton);
-		window.draw(helpText);
-
-		window.draw(playButton);
-		window.draw(playText);
-
-		window.display();
-
 		if (event.type == sf::Event::MouseButtonReleased)
+		{
 			if (event.mouseButton.button == sf::Mouse::Button::Left)
 			{
 				mousePosition = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
-				if (playButton.getGlobalBounds().contains(mousePosition))
+
+
+				if (playButton.getGlobalBounds().contains(mousePosition) && !m_help)
 					break;
+
+				m_help = false;
+				
 				if (helpButton.getGlobalBounds().contains(mousePosition))
+					m_help = true;
+
+				if (m_help)
 				{
-					while (window.pollEvent(event))
-					{
-						if(event.type != sf::Event::MouseButtonPressed)
-						{
-							backgroundStart.setTexture(Graphics::getInstance().getTexture(23));
-							window.draw(backgroundStart);
-							window.display();
-						}
-						else
-						{
-							backgroundStart.setTexture(Graphics::getInstance().getTexture(index));
-							break;
-						}
-					}
+					backgroundStart.setTexture(Graphics::getInstance().getTexture(23));
+					window.draw(backgroundStart);
+					window.display();
+				}
+				else
+				{
+					backgroundStart.setTexture(Graphics::getInstance().getTexture(index));
+					window.draw(backgroundStart);
+					window.draw(helpButton);
+					window.draw(helpText);
+					window.draw(playButton);
+					window.draw(playText);
+					window.display();
 				}
 			}
+		}
 		if (event.type == sf::Event::Closed)
 		{
 			window.close();
