@@ -1,5 +1,8 @@
 #include "Rock.h"
 #include "Guards.h"
+#include "Ice.h"
+#include "Wood.h"
+
 
 Rock::Rock(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize)
 	: Wall(world, width, position, circle, windowSize)
@@ -36,17 +39,24 @@ void Rock::collision(Rhaegal & object)
 
 void Rock::collision(Rock & object)
 {
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Rock::collision(Ice & object)
 {
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Rock::collision(Wood & object)
 {
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Rock::collision(Guards & object)
 {
+	updateLife(1);
 	object.collision(*this);
 }

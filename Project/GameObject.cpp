@@ -87,6 +87,19 @@ void GameObject::print(sf::RenderWindow & window)
 
 		}
 	}
+	if (d && d->getActive() && d->getIfStart())
+	{
+		sf::Color brown(102, 51, 0);
+
+		sf::Vertex line1[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 6, window.getSize().y / 6 *5),  brown) ,
+			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25),  brown)};
+
+		sf::Vertex line2[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 5, window.getSize().y / 6 * 5) , brown) ,
+			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25), brown) };
+		
+		window.draw(line1, 2, sf::Lines);
+		window.draw(line2, 2, sf::Lines);
+	}
 
 	m_sprite.setPosition(m_body->GetPosition().x *SCALE, m_body->GetPosition().y *SCALE);
 	m_sprite.setRotation(m_body->GetAngle() * 180 / b2_pi);

@@ -100,7 +100,10 @@ void GameController::readLevel(ifstream & file)
 void GameController::run()
 {
 	// Start the game
+	Graphics::getInstance().getMusic()->play();
+
 	m_menu.transitionalScreen(m_window, "play", 9);
+	Graphics::getInstance().getMusic()->setVolume(30);
 	m_menu.viewMap(m_window);
 
 	sf::RectangleShape m_back;
@@ -113,10 +116,11 @@ void GameController::run()
 
 	while (m_window.isOpen())
 	{
+
 		if (checkEndLevel())
 		{
 			m_menu.viewMap(m_window);
-			m_menu.transitionalScreen(m_window, "You Won", 9);
+			m_menu.transitionalScreen(m_window, "You Won", 22);
 			// gameOver - levels end 
 			break;
 		}
@@ -139,6 +143,7 @@ void GameController::eventhandler()
 
 		switch (event.type)
 		{
+		
 		case sf::Event::Closed:
 			m_window.close();
 			break;
@@ -162,7 +167,7 @@ void GameController::eventhandler()
 							float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
 							float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
 							if(mouseY > m_window.getSize().y - 20)
-								m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY });
+								m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY }, m_window);
 						}
 					}
 				}
@@ -173,7 +178,7 @@ void GameController::eventhandler()
 			{
 				// The user let go of the dragon (after dragging it)
 				sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-				m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
+				// m_dragons[m_dragons.size() - 1]->setMousePositionEnd(mousePos);
 				m_dragons[m_dragons.size() - 1]->launchDragon();
 			}
 			break;
@@ -183,7 +188,7 @@ void GameController::eventhandler()
 			{
 				float mouseX = static_cast <float>(sf::Mouse::getPosition(m_window).x);
 				float mouseY = static_cast <float>(sf::Mouse::getPosition(m_window).y);
-				m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY });
+				m_dragons[m_dragons.size() - 1]->moveDragon({ mouseX , mouseY }, m_window);
 			}
 			break;
 

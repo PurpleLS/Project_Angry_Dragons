@@ -23,6 +23,6 @@ public:
 	virtual void collision(Guards & object) override;
 
 protected:
-	float m_life = 3;
+	float m_life = 10;
 };
 

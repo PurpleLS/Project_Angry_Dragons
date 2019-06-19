@@ -81,5 +81,6 @@ void Guards::collision(Wood & object)
 
 void Guards::collision(Guards & object)
 {
-	//
+	updateLife(1);
+	object.updateLife(1);
 }

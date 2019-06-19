@@ -1,5 +1,7 @@
 #include "Wood.h"
 #include "Guards.h"
+#include "Rock.h"
+#include "Ice.h"
 
 
 Wood::Wood(b2World & world, int width, sf::Vector2i postion, bool circle, sf::Vector2u windowSize)
@@ -38,20 +40,24 @@ void Wood::collision(Rhaegal & object)
 
 void Wood::collision(Rock & object)
 {
-	// nothing
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Wood::collision(Ice & object)
 {
-	// nothing
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Wood::collision(Wood & object)
 {
-	// nothing
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Wood::collision(Guards & object)
 {
+	updateLife(1);
 	object.collision(*this);
 }

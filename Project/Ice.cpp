@@ -1,6 +1,8 @@
 #include "Ice.h"
 #include <iostream>
 #include "Guards.h"
+#include "Rock.h"
+#include "Wood.h"
 
 
 Ice::Ice(b2World & world, int width, sf::Vector2i position, bool circle, sf::Vector2u windowSize)
@@ -37,20 +39,24 @@ void Ice::collision(Rhaegal & object)
 
 void Ice::collision(Rock & object)
 {
-	// nothing 
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Ice::collision(Ice & object)
 {
-	// nothing 
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Ice::collision(Wood & object)
 {
-	// nothing 
+	updateLife(1);
+	object.updateLife(1);
 }
 
 void Ice::collision(Guards & object)
 {
+	updateLife(1);
 	object.collision(*this);
 }

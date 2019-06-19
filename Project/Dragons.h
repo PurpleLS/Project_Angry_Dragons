@@ -13,12 +13,12 @@ public:
 	// bool getIfUsed() { return m_used; }
 	void setActive(float x, float y);
 	void setMousePositionStart(sf::Vector2f position) { if (!m_start) { m_mousePositionStart = position; m_start = true; } }
-	void setMousePositionEnd(sf::Vector2f position) { m_mousePositionEnd = position; }
+	// void setMousePositionEnd(sf::Vector2f position) { m_mousePositionEnd = position; }
 	sf::Vector2f getMousePositionStart() { return m_mousePositionStart; }
-	sf::Vector2f getMousePositionEnd() { return m_mousePositionEnd; }
+	// sf::Vector2f getMousePositionEnd() { return m_mousePositionEnd; }
 	bool checkMovement();
 	void launchDragon();
-	void moveDragon(sf::Vector2f position);
+	void moveDragon(sf::Vector2f position, sf::RenderWindow & window);
 	~Dragons();
 	virtual void move();
 
@@ -37,7 +37,7 @@ protected:
 	bool m_start = false;
 	// bool m_used = false;
 	sf::Vector2f m_mousePositionStart;
-	sf::Vector2f m_mousePositionEnd;
+	// sf::Vector2f m_mousePositionEnd;
 	sf::Clock m_clock;
 
 };

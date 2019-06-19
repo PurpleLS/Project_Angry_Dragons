@@ -15,7 +15,7 @@ Menu::~Menu()
 void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 {
 	// Transitional screens between levels
-	Graphics::getInstance().getMusic()->play();
+	// Graphics::getInstance().getMusic()->play();
 	sf::RectangleShape playButton;
 	sf::Text playText;
 	sf::Vector2f mousePosition;
@@ -69,7 +69,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 			}
 		}
 	}
-	Graphics::getInstance().getMusic()->setVolume(20);
+	// Graphics::getInstance().getMusic()->setVolume(20);
 	// Graphics::getInstance().stopMusic();
 // background.setTexture(graphics.getTexture(12));
 }
