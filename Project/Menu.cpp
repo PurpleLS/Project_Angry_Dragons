@@ -21,6 +21,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	sf::Text helpText;
 	sf::Vector2f mousePosition;
 	sf::RectangleShape backgroundStart;
+	sf::FloatRect textRect;
 
 	backgroundStart.setSize({ (float)window.getSize().x, (float)window.getSize().y});
 	backgroundStart.setPosition({ 0,0 });
@@ -31,24 +32,40 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 
 
 	playButton.setFillColor(sf::Color::Transparent);
-	playButton.setPosition({(float)(window.getSize().x /2) - 150, (float)(window.getSize().y / 2)  + 200});
 	playButton.setSize({ 285, 100 });
+	playButton.setOrigin({ 129,50 });
+	playButton.setPosition({(float)(window.getSize().x /2) , (float)(window.getSize().y / 2)  + 200});
 
-	playText.setPosition(playButton.getPosition());
 	playText.setCharacterSize(100);
 	playText.setFont(* Graphics::getInstance().getFont());
 	playText.setFillColor(sf::Color::White);
 	playText.setString(text);
+	playText.setOutlineThickness(5);
+	playText.setOutlineColor(sf::Color::Black);
+
+	textRect = playText.getLocalBounds();
+	playText.setOrigin(textRect.left + textRect.width / 2, textRect.top + textRect.height / 2);
+	playText.setPosition(playButton.getPosition());
+
 
 	helpButton.setFillColor(sf::Color::Transparent);
-	helpButton.setPosition({ (float)(window.getSize().x / 2) - 150, (float)(window.getSize().y / 2) + 350 });
 	helpButton.setSize({ 295, 100 });
+	helpButton.setOrigin({ 129,50 });
+	helpButton.setPosition({ (float)(window.getSize().x / 2) , (float)(window.getSize().y / 2) + 350 });
 
-	helpText.setPosition(helpButton.getPosition());
+	
 	helpText.setCharacterSize(100);
 	helpText.setFont(*Graphics::getInstance().getFont());
 	helpText.setFillColor(sf::Color::White);
 	helpText.setString("help");
+	helpText.setOutlineThickness(5);
+	helpText.setOutlineColor(sf::Color::Black);
+
+	textRect = helpText.getLocalBounds();
+	helpText.setOrigin(textRect.left + textRect.width /2 , textRect.top + textRect.height / 2);
+	helpText.setPosition(helpButton.getPosition());
+
+
 
 	window.draw(backgroundStart);
 	window.draw(helpButton);
