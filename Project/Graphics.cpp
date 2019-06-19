@@ -5,7 +5,7 @@
 Graphics::Graphics()
 {
 	// Load all the pictures, font and music 
-	m_pictures.resize(23);
+	m_pictures.resize(24);
 	if (!m_pictures[0].loadFromFile("Pictures/wood_icon.png")   ) { std::cerr << "error in loading picture 0\n";};
 	if (!m_pictures[1].loadFromFile("Pictures/rock_icon.png")   ) { std::cerr << "error in loading picture 1\n";};
 	if (!m_pictures[2].loadFromFile("Pictures/ice_icon.jpg")    ) { std::cerr << "error in loading picture 2\n";};
@@ -31,6 +31,7 @@ Graphics::Graphics()
 	if (!m_pictures[20].loadFromFile("Pictures/wood_icon_cracked.png")) { std::cerr << "error in loading picture 20\n"; };
 	if (!m_pictures[21].loadFromFile("Pictures/guards_icon4.png")) { std::cerr << "error in loading picture 21\n"; };
 	if (!m_pictures[22].loadFromFile("Pictures/throne.jpg")) { std::cerr << "error in loading picture 22\n"; };
+	if (!m_pictures[23].loadFromFile("Pictures/help_icon.png")) { std::cerr << "error in loading picture 23\n"; };
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };
 

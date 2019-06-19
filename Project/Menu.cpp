@@ -15,9 +15,10 @@ Menu::~Menu()
 void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 {
 	// Transitional screens between levels
-	// Graphics::getInstance().getMusic()->play();
 	sf::RectangleShape playButton;
+	sf::RectangleShape helpButton;
 	sf::Text playText;
+	sf::Text helpText;
 	sf::Vector2f mousePosition;
 	sf::RectangleShape backgroundStart;
 
@@ -31,7 +32,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 
 	playButton.setFillColor(sf::Color::Transparent);
 	playButton.setPosition({(float)(window.getSize().x /2) - 150, (float)(window.getSize().y / 2)  + 200});
-	playButton.setSize({ 350, 200 });
+	playButton.setSize({ 285, 100 });
 
 	playText.setPosition(playButton.getPosition());
 	playText.setCharacterSize(100);
@@ -39,21 +40,52 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	playText.setFillColor(sf::Color::White);
 	playText.setString(text);
 
-	window.draw(playButton);
-	window.draw(playText);
+	helpButton.setFillColor(sf::Color::Transparent);
+	helpButton.setPosition({ (float)(window.getSize().x / 2) - 150, (float)(window.getSize().y / 2) + 350 });
+	helpButton.setSize({ 295, 100 });
 
-	window.display();
+	helpText.setPosition(helpButton.getPosition());
+	helpText.setCharacterSize(100);
+	helpText.setFont(*Graphics::getInstance().getFont());
+	helpText.setFillColor(sf::Color::White);
+	helpText.setString("help");
 
 
 	sf::Event event;
 	while (window.waitEvent(event))
 	{
+		window.draw(backgroundStart);
+		window.draw(helpButton);
+		window.draw(helpText);
+
+		window.draw(playButton);
+		window.draw(playText);
+
+		window.display();
+
 		if (event.type == sf::Event::MouseButtonReleased)
 			if (event.mouseButton.button == sf::Mouse::Button::Left)
 			{
 				mousePosition = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 				if (playButton.getGlobalBounds().contains(mousePosition))
 					break;
+				if (helpButton.getGlobalBounds().contains(mousePosition))
+				{
+					while (window.pollEvent(event))
+					{
+						if(event.type != sf::Event::MouseButtonPressed)
+						{
+							backgroundStart.setTexture(Graphics::getInstance().getTexture(23));
+							window.draw(backgroundStart);
+							window.display();
+						}
+						else
+						{
+							backgroundStart.setTexture(Graphics::getInstance().getTexture(index));
+							break;
+						}
+					}
+				}
 			}
 		if (event.type == sf::Event::Closed)
 		{
@@ -69,8 +101,6 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 			}
 		}
 	}
-	// Graphics::getInstance().getMusic()->setVolume(20);
-	// Graphics::getInstance().stopMusic();
 // background.setTexture(graphics.getTexture(12));
 }
 
