@@ -34,7 +34,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	playButton.setFillColor(sf::Color::Transparent);
 	playButton.setSize({ 285, 100 });
 	playButton.setOrigin({ 129,50 });
-	playButton.setPosition({(float)(window.getSize().x /2) , (float)(window.getSize().y / 2)  + 200});
+	playButton.setPosition({(float)(window.getSize().x /2) , (float)(window.getSize().y / 2)  + 300});
 
 	playText.setCharacterSize(100);
 	playText.setFont(* Graphics::getInstance().getFont());
@@ -51,7 +51,7 @@ void Menu::transitionalScreen(sf::RenderWindow & window, string text, int index)
 	helpButton.setFillColor(sf::Color::Transparent);
 	helpButton.setSize({ 295, 100 });
 	helpButton.setOrigin({ 129,50 });
-	helpButton.setPosition({ (float)(window.getSize().x / 2) , (float)(window.getSize().y / 2) + 350 });
+	helpButton.setPosition({ (float)(window.getSize().x / 2) , (float)(window.getSize().y / 2) + 450 });
 
 	
 	helpText.setCharacterSize(100);

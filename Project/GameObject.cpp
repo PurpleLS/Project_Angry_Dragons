@@ -91,11 +91,11 @@ void GameObject::print(sf::RenderWindow & window)
 	{
 		sf::Color brown(102, 51, 0);
 
-		sf::Vertex line1[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 6, window.getSize().y / 6 *5),  brown) ,
-			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25),  brown)};
+		sf::Vertex line1[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 6, window.getSize().y / 6 *5 + 15),  brown) ,
+			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25),  sf::Color::White)};
 
-		sf::Vertex line2[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 5, window.getSize().y / 6 * 5) , brown) ,
-			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25), brown) };
+		sf::Vertex line2[2] = { sf::Vertex(sf::Vector2f(window.getSize().x / 5, window.getSize().y / 6 * 5 + 15) , brown) ,
+			sf::Vertex(sf::Vector2f(d->getSprite().getPosition().x + 25,d->getSprite().getPosition().y + 25), sf::Color::White) };
 		
 		window.draw(line1, 2, sf::Lines);
 		window.draw(line2, 2, sf::Lines);
