@@ -32,7 +32,7 @@ Graphics::Graphics()
 	if (!m_pictures[19].loadFromFile("Pictures/rock_icon_cracked.png")) { std::cerr << "error in loading picture 19\n"; };
 	if (!m_pictures[20].loadFromFile("Pictures/wood_icon_cracked.png")) { std::cerr << "error in loading picture 20\n"; };
 	if (!m_pictures[21].loadFromFile("Pictures/guards_icon4.png")) { std::cerr << "error in loading picture 21\n"; };
-	if (!m_pictures[22].loadFromFile("Pictures/throne.jpg")) { std::cerr << "error in loading picture 22\n"; };
+	if (!m_pictures[22].loadFromFile("Pictures/throne_won.png")) { std::cerr << "error in loading picture 22\n"; };
 	if (!m_pictures[23].loadFromFile("Pictures/help_icon.png")) { std::cerr << "error in loading picture 23\n"; };
 
 	if (!m_font.loadFromFile("Fonts/planet-benson/planetbe.ttf")) { std::cerr << "error in loading Font\n"; };

@@ -14,17 +14,6 @@ GameController::GameController()
 	m_window.create(sf::VideoMode(), "Angry Dragons", sf::Style::Fullscreen | sf::Style::Close);
 	m_window.setFramerateLimit(60);
 
-	/*
-	sf::RectangleShape background;
-
-	background.setSize({ (float)m_window.getSize().x, (float)m_window.getSize().y });
-	background.setPosition({ 0,0 });
-
-	m_window.clear();
-	background.setTexture(Graphics::getInstance().getTexture(9));
-	m_window.draw(background);
-	*/
-
 	readLevel(LevelManager::getInstance().getCurrentLevel());
 }
 
@@ -134,7 +123,7 @@ void GameController::run()
 		if (checkEndLevel())
 		{
 			m_menu.viewMap(m_window);
-			m_menu.transitionalScreen(m_window, "You Won", 22);
+			//m_menu.transitionalScreen(m_window, "You Won", 22);
 			// gameOver - levels end 
 			break;
 		}

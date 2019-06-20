@@ -17,13 +17,10 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-//const float SCALE = 30.f;
-
 class GameController
 {
 public:
 	GameController();
-	// GameController(ifstream &file);
 	void run();
 	~GameController();
 

@@ -141,5 +141,14 @@ void Menu::viewMap(sf::RenderWindow & window)
 	window.display();
 
 	Sleep(3000);
+
+	if (index - 1 == MAX_LEVELS)
+	{
+		window.clear();
+		map.setTexture(Graphics::getInstance().getTexture(22));
+		window.draw(map);
+		window.display();
+		Sleep(6000);
+	}
 	
 }

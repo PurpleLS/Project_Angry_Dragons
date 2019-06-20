@@ -10,12 +10,10 @@ public:
 		: GameObject(world, width, position, circle, windowSize) { m_active = false; m_body->SetType(b2_staticBody);}
 	bool getActive() { return m_active; }
 	bool getIfStart() { return m_start; }
-	// bool getIfUsed() { return m_used; }
 	void setActive(float x, float y);
-	void setMousePositionStart(sf::Vector2f position) { if (!m_start) { m_mousePositionStart = position; m_start = true; Graphics::getInstance().playSound(0); } }
-	// void setMousePositionEnd(sf::Vector2f position) { m_mousePositionEnd = position; }
+	void setMousePositionStart(sf::Vector2f position) { if (!m_start) { m_mousePositionStart = position; m_start = true; 
+								Graphics::getInstance().playSound(0); } }
 	sf::Vector2f getMousePositionStart() { return m_mousePositionStart; }
-	// sf::Vector2f getMousePositionEnd() { return m_mousePositionEnd; }
 	bool checkMovement();
 	void launchDragon();
 	void moveDragon(sf::Vector2f position, sf::RenderWindow & window);
